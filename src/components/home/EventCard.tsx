@@ -48,7 +48,9 @@ const statusLabel: Record<GdgEvent["status"], string> = {
  */
 export default function EventCard({ event }: { event: GdgEvent }) {
   const accent = accents[event.accent];
-  const href = event.status === "past" ? (event.recapUrl ?? "#") : (event.registerUrl ?? "#");
+  // Always route to the detail page: that is where the real registration or
+  // recap link lives, so the card never duplicates an outbound URL.
+  const href = `/events/${event.slug}`;
 
   const meta = [
     { Icon: IconPin, label: "Venue", value: event.venue },
@@ -139,7 +141,9 @@ export default function EventCard({ event }: { event: GdgEvent }) {
         </div>
 
         <h3 className="mt-4 text-[1.4rem] leading-[1.08] tracking-[-0.03em] sm:text-[1.55rem]">
-          {event.title}
+          <Link href={href} className="after:absolute after:inset-0 after:content-['']">
+            {event.title}
+          </Link>
         </h3>
 
         <p className="mt-3.5 line-clamp-3 text-[0.925rem] leading-[1.7] text-ink-soft">
@@ -158,15 +162,15 @@ export default function EventCard({ event }: { event: GdgEvent }) {
 
         <div className="mt-auto pt-8">
           <hr className="rule-hair" />
-          <Link
-            href={href}
-            className="group/cta mt-5 inline-flex items-center gap-2 font-heading text-[0.95rem] font-medium tracking-[-0.01em]"
+          <span
+            aria-hidden="true"
+            className="mt-5 inline-flex items-center gap-2 font-heading text-[0.95rem] font-medium tracking-[-0.01em]"
           >
             {event.status === "past" ? "View recap" : "Register"}
-            <span className="flex size-7 items-center justify-center rounded-full bg-ink/5 transition-colors duration-400 group-hover/cta:bg-ink group-hover/cta:text-white">
-              <ArrowIcon className="size-3.5 group-hover/cta:translate-x-0" />
+            <span className="flex size-7 items-center justify-center rounded-full bg-ink/5 transition-colors duration-400 group-hover:bg-ink group-hover:text-white">
+              <ArrowIcon className="size-3.5" />
             </span>
-          </Link>
+          </span>
         </div>
       </div>
     </article>
