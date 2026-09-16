@@ -120,6 +120,75 @@ export const events: GdgEvent[] = [
     accent: "green",
   },
   {
+    id: "evt-007",
+    slug: "devfest-nagpur-2024",
+    title: "DevFest Nagpur 2024",
+    format: "DevFest",
+    status: "past",
+    date: "2024-11-30",
+    time: "9:30 AM - 6:00 PM IST",
+    venue: "Hotel Tuli Imperial, Ramdaspeth",
+    city: "Nagpur",
+    summary:
+      "Two tracks, a hardware corner nobody expected to be this busy, and the first year the chapter had to close registrations early.",
+    capacity: 350,
+    attended: 341,
+    recapUrl: "#",
+    accent: "blue",
+  },
+  {
+    id: "evt-008",
+    slug: "women-techmakers-iwd",
+    title: "Women Techmakers: IWD Nagpur",
+    format: "Workshop",
+    status: "past",
+    date: "2024-03-09",
+    time: "10:00 AM - 4:00 PM IST",
+    venue: "VNIT Nagpur, South Ambazari Road",
+    city: "Nagpur",
+    summary:
+      "A day of workshops and a panel that ran forty minutes over because nobody in the room wanted it to end.",
+    capacity: 200,
+    attended: 193,
+    recapUrl: "#",
+    accent: "red",
+  },
+  {
+    id: "evt-009",
+    slug: "cloud-study-jam-series",
+    title: "Google Cloud Study Jam Series",
+    format: "Study Jam",
+    status: "past",
+    date: "2024-08-03",
+    endDate: "2024-08-24",
+    time: "Saturdays, 11:00 AM - 2:00 PM IST",
+    venue: "IIIT Nagpur, Butibori",
+    city: "Nagpur",
+    summary:
+      "Four consecutive Saturdays working through the Cloud skill badges together, ending with 60 participants certified.",
+    capacity: 100,
+    attended: 96,
+    recapUrl: "#",
+    accent: "yellow",
+  },
+  {
+    id: "evt-010",
+    slug: "kotlin-multiplatform-workshop",
+    title: "Kotlin Multiplatform Workshop",
+    format: "Workshop",
+    status: "past",
+    date: "2025-02-15",
+    time: "10:00 AM - 3:00 PM IST",
+    venue: "91Springboard, Wardha Road",
+    city: "Nagpur",
+    summary:
+      "One codebase, two platforms, five hours. Everyone left with the same app running on an Android phone and an iPad.",
+    capacity: 80,
+    attended: 74,
+    recapUrl: "#",
+    accent: "green",
+  },
+  {
     id: "evt-006",
     slug: "fireside-building-in-public",
     title: "Fireside: Building in Public",
@@ -137,6 +206,18 @@ export const events: GdgEvent[] = [
     accent: "yellow",
   },
 ];
+
+/** Newest first within a status - what a curated grid should show. */
+export function getEventsByStatus(status: EventStatus | "all"): GdgEvent[] {
+  const list = status === "all" ? events : events.filter((e) => e.status === status);
+  const rank: Record<EventStatus, number> = { ongoing: 0, upcoming: 1, past: 2 };
+  return [...list].sort((a, b) => {
+    const byStatus = rank[a.status] - rank[b.status];
+    if (byStatus !== 0) return byStatus;
+    // Upcoming reads soonest-first; past reads most-recent-first.
+    return a.status === "past" ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date);
+  });
+}
 
 /** Events to surface on the home page: ongoing first, then soonest upcoming. */
 export function getFeaturedEvents(limit = 3): GdgEvent[] {
