@@ -16,12 +16,12 @@ function OpportunityCard({ item }: { item: Opportunity }) {
   return (
     <a
       href={item.href}
-      className="group mx-2.5 flex w-[19rem] shrink-0 flex-col rounded-[1.75rem] border border-black/8 bg-cream p-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:bg-paper sm:w-[21rem]"
+      className="card-inset card-pop group mx-2.5 flex w-[19rem] shrink-0 flex-col p-7 sm:w-[21rem]"
     >
       <div className="flex items-center justify-between gap-3">
         <span
           className={cn(
-            "inline-flex rounded-full px-3 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.1em]",
+            "label-caps inline-flex rounded-full px-3 py-1.5 text-[0.66rem]",
             typeTint[item.type],
           )}
         >
@@ -30,12 +30,12 @@ function OpportunityCard({ item }: { item: Opportunity }) {
         <ArrowIcon className="size-4 text-ink-soft" />
       </div>
 
-      <h3 className="mt-5 line-clamp-2 font-heading text-[1.15rem] leading-[1.15] tracking-[-0.02em]">
+      <h3 className="mt-5 line-clamp-2 font-heading text-[1.15rem] leading-[1.15] tracking-[-0.03em]">
         {item.role}
       </h3>
       <p className="mt-2 text-[0.9rem] text-ink-soft">{item.company}</p>
 
-      <div className="mt-5 flex items-center gap-2 border-t border-black/8 pt-4 text-[0.8rem] text-ink-soft/80">
+      <div className="mt-6 flex items-center gap-2 border-t border-ink/8 pt-4 text-[0.8rem] text-ink-soft/80">
         <IconPin className="size-3.5 shrink-0" />
         <span className="truncate">{item.location}</span>
       </div>
@@ -84,7 +84,7 @@ export default function OpportunitiesStrip() {
       <Container className="mt-12">
         <div
           data-reveal="fade-up"
-          className="flex flex-col items-start gap-4 rounded-[2rem] border border-black/8 bg-cream p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+          className="card-inset flex flex-col items-start gap-4 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-9"
         >
           <div>
             <h3 className="text-[1.25rem] sm:text-[1.4rem]">Hiring, or know of something?</h3>

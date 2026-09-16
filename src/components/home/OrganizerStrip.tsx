@@ -19,7 +19,7 @@ export default function OrganizerStrip() {
       <Container>
         <div
           data-reveal="fade-up"
-          className="relative overflow-hidden rounded-[2.5rem] border border-black/8 bg-cream p-8 sm:p-12 lg:p-16"
+          className="card-inset relative overflow-hidden p-8 sm:p-12 lg:p-16"
         >
           <div
             aria-hidden="true"
@@ -39,7 +39,7 @@ export default function OrganizerStrip() {
               <Eyebrow>Who runs this</Eyebrow>
               <h2
                 data-motion-text="words"
-                className="mt-4 text-[2rem] leading-[1.05] sm:text-[2.6rem]"
+                className="mt-4 text-[2rem] leading-[1.03] tracking-[-0.04em] sm:text-[2.6rem]"
               >
                 {organizer.name}
               </h2>

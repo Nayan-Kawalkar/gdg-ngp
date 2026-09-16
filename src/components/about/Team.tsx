@@ -18,7 +18,7 @@ function MemberCard({ member }: { member: TeamMember }) {
   return (
     <article
       data-reveal-item
-      className="group rounded-[2rem] border border-black/8 bg-cream p-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:bg-paper"
+      className="card-inset card-pop group p-7"
     >
       {/* TODO(team): swap the initials tile for a portrait once photos exist. */}
       <span
@@ -28,7 +28,7 @@ function MemberCard({ member }: { member: TeamMember }) {
         {initials(member.name)}
       </span>
 
-      <h3 className="mt-5 text-[1.15rem] leading-tight">{member.name}</h3>
+      <h3 className="mt-6 text-[1.15rem] leading-tight tracking-[-0.025em]">{member.name}</h3>
       <p className="mt-1.5 text-[0.875rem] text-ink-soft">{member.role}</p>
 
       <div className="mt-5 flex gap-2">
@@ -68,7 +68,7 @@ export default function Team() {
         {/* Organizer feature */}
         <div
           data-reveal="fade-up"
-          className="relative mt-14 overflow-hidden rounded-[2.5rem] border border-black/8 bg-cream p-8 sm:p-10 lg:p-12"
+          className="card-inset relative mt-14 overflow-hidden p-8 sm:p-10 lg:p-12"
         >
           <div
             aria-hidden="true"
@@ -84,7 +84,7 @@ export default function Team() {
 
             <div>
               <Eyebrow>Organizer</Eyebrow>
-              <h3 className="mt-4 text-[1.85rem] leading-[1.05] sm:text-[2.35rem]">
+              <h3 className="mt-4 text-[1.85rem] leading-[1.03] tracking-[-0.04em] sm:text-[2.35rem]">
                 {organizer.name}
               </h3>
               <p className="mt-2 text-[0.95rem] font-medium text-brand-blue">
@@ -136,7 +136,7 @@ export default function Team() {
 
           <article
             data-reveal-item
-            className="flex flex-col justify-between rounded-[2rem] border border-dashed border-ink/20 bg-transparent p-6"
+            className="flex flex-col justify-between rounded-[var(--radius-3xl)] border border-dashed border-ink/20 bg-transparent p-7"
           >
             <div>
               <span
@@ -145,7 +145,7 @@ export default function Team() {
               >
                 +
               </span>
-              <h3 className="mt-5 text-[1.15rem] leading-tight">This could be you</h3>
+              <h3 className="mt-6 text-[1.15rem] leading-tight tracking-[-0.025em]">This could be you</h3>
               <p className="mt-1.5 text-[0.875rem] leading-relaxed text-ink-soft">
                 We need help with events, content and design.
               </p>

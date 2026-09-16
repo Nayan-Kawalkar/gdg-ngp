@@ -52,7 +52,7 @@ export default function WhyJoin() {
                 key={prop.id}
                 data-reveal-item
                 className={cn(
-                  "group relative flex flex-col overflow-hidden rounded-[2rem] border border-black/8 bg-cream p-7 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:bg-paper sm:p-8",
+                  "card-inset card-pop group relative flex flex-col overflow-hidden p-8 sm:p-9",
                   span,
                 )}
               >
@@ -65,14 +65,14 @@ export default function WhyJoin() {
                   <Icon className="size-6" />
                 </span>
 
-                <h3 className="mt-6 text-[1.3rem] sm:text-[1.45rem]">{prop.title}</h3>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                <h3 className="mt-7 text-[1.3rem] tracking-[-0.03em] sm:text-[1.45rem]">{prop.title}</h3>
+                <p className="mt-3.5 text-[0.95rem] leading-[1.7] text-ink-soft">
                   {prop.body}
                 </p>
 
                 <span
                   aria-hidden="true"
-                  className="mt-auto pt-8 font-heading text-[0.75rem] font-medium uppercase tracking-[0.2em] text-ink-soft/40"
+                  className="label-caps mt-auto pt-9 text-[0.68rem] text-ink-soft/40"
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>

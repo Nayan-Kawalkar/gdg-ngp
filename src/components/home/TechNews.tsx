@@ -37,12 +37,12 @@ export default function TechNews() {
               target={item.href.startsWith("http") ? "_blank" : undefined}
               rel={item.href.startsWith("http") ? "noreferrer noopener" : undefined}
               data-reveal-item
-              className="card-sticker group flex flex-col p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 sm:p-8"
+              className="card-sticker card-pop group flex flex-col p-7 sm:p-8"
             >
               <div className="flex items-center justify-between gap-3">
                 <span
                   className={cn(
-                    "inline-flex rounded-full px-3 py-1.5 text-[0.72rem] font-medium uppercase tracking-[0.1em]",
+                    "label-caps inline-flex rounded-full px-3 py-1.5 text-[0.68rem]",
                     categoryTint[item.category],
                   )}
                 >
@@ -56,14 +56,14 @@ export default function TechNews() {
                 </time>
               </div>
 
-              <h3 className="mt-6 text-[1.3rem] leading-[1.12] sm:text-[1.4rem]">
+              <h3 className="mt-6 text-[1.3rem] leading-[1.1] tracking-[-0.03em] sm:text-[1.4rem]">
                 {item.headline}
               </h3>
-              <p className="mt-3 text-[0.925rem] leading-relaxed text-ink-soft">
+              <p className="mt-3.5 text-[0.925rem] leading-[1.7] text-ink-soft">
                 {item.summary}
               </p>
 
-              <div className="mt-auto flex items-center justify-between gap-3 pt-7">
+              <div className="mt-auto flex items-center justify-between gap-3 border-t border-ink/8 pt-6">
                 <span className="truncate text-[0.82rem] text-ink-soft/70">
                   {item.source}
                 </span>

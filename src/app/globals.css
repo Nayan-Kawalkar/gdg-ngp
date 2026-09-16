@@ -129,17 +129,131 @@ h1 {
    COMPONENT PRIMITIVES
    ========================================================== */
 @layer components {
-  /* Flat card separated by a hairline tonal edge only */
+  /*
+   * Cards. Still flat - no box-shadow anywhere, per DESIGN.md. The premium
+   * feel comes from two things instead:
+   *
+   *   1. A gradient hairline edge: stronger at the top-left where light would
+   *      catch it, fading to almost nothing at the bottom-right. A single flat
+   *      border colour is what makes a card look cheap at this size.
+   *   2. A barely-there vertical surface gradient, so the fill reads as a
+   *      material rather than a swatch.
+   *
+   * Uses the padding-box/border-box two-layer background rather than a masked
+   * pseudo-element, so there is nothing extra in the stacking context to fight
+   * with banners, chips or overflow-hidden.
+   */
   .card-sticker {
-    border: 1px solid rgba(26, 26, 26, 0.07);
+    border: 1px solid transparent;
     border-radius: var(--radius-3xl);
-    background: var(--color-paper);
+    background:
+      linear-gradient(180deg, #ffffff 0%, #fdfcf9 100%) padding-box,
+      linear-gradient(
+          155deg,
+          rgba(26, 26, 26, 0.15),
+          rgba(26, 26, 26, 0.07) 42%,
+          rgba(26, 26, 26, 0.035)
+        )
+        border-box;
+    transition:
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.55s ease;
+  }
+
+  /* Same treatment for cards sitting on a white section */
+  .card-inset {
+    border: 1px solid transparent;
+    border-radius: var(--radius-3xl);
+    background:
+      linear-gradient(180deg, #fbf9f2 0%, #f8f5ec 100%) padding-box,
+      linear-gradient(
+          155deg,
+          rgba(26, 26, 26, 0.14),
+          rgba(26, 26, 26, 0.06) 42%,
+          rgba(26, 26, 26, 0.03)
+        )
+        border-box;
+    transition:
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.55s ease;
+  }
+
+  /* Interactive cards: lift, and let the edge catch a little more light */
+  .card-pop:hover {
+    transform: translateY(-6px);
+  }
+  .card-sticker.card-pop:hover {
+    background:
+      linear-gradient(180deg, #ffffff 0%, #fffefc 100%) padding-box,
+      linear-gradient(
+          155deg,
+          rgba(26, 26, 26, 0.24),
+          rgba(26, 26, 26, 0.1) 42%,
+          rgba(26, 26, 26, 0.05)
+        )
+        border-box;
+  }
+  .card-inset.card-pop:hover {
+    background:
+      linear-gradient(180deg, #ffffff 0%, #fdfcf9 100%) padding-box,
+      linear-gradient(
+          155deg,
+          rgba(26, 26, 26, 0.22),
+          rgba(26, 26, 26, 0.09) 42%,
+          rgba(26, 26, 26, 0.04)
+        )
+        border-box;
   }
 
   .card-sticker-dark {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid transparent;
     border-radius: var(--radius-3xl);
-    background: rgba(255, 255, 255, 0.04);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02))
+        padding-box,
+      linear-gradient(
+          155deg,
+          rgba(255, 255, 255, 0.22),
+          rgba(255, 255, 255, 0.08) 42%,
+          rgba(255, 255, 255, 0.04)
+        )
+        border-box;
+    transition:
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.55s ease;
+  }
+  .card-sticker-dark.card-pop:hover {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.03))
+        padding-box,
+      linear-gradient(
+          155deg,
+          rgba(255, 255, 255, 0.34),
+          rgba(255, 255, 255, 0.12) 42%,
+          rgba(255, 255, 255, 0.06)
+        )
+        border-box;
+  }
+
+  /* Hairline divider that fades at both ends - reads finer than a solid rule */
+  .rule-hair {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      to right,
+      rgba(26, 26, 26, 0.12) 0%,
+      rgba(26, 26, 26, 0.11) 72%,
+      transparent 100%
+    );
+  }
+
+  /* Small-caps utility label */
+  .label-caps {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
   }
 
   /* Pill tag / eyebrow */

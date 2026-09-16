@@ -58,7 +58,7 @@ export default function CommunityCTA() {
                   : {})}
                 data-reveal-item
                 className={cn(
-                  "group relative flex min-h-[15rem] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 sm:p-8",
+                  "card-sticker-dark card-pop group relative flex min-h-[16rem] flex-col justify-between overflow-hidden p-8 sm:p-9",
                   accentFill[channel.accent],
                   accentText[channel.accent],
                 )}
@@ -69,7 +69,7 @@ export default function CommunityCTA() {
                 </div>
 
                 <div>
-                  <h3 className="font-heading text-[1.6rem] tracking-[-0.03em]">
+                  <h3 className="font-heading text-[1.65rem] tracking-[-0.035em]">
                     {channel.name}
                   </h3>
                   <p className="mt-1 text-[0.85rem] opacity-60">{channel.handle}</p>

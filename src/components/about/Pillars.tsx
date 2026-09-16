@@ -41,7 +41,7 @@ export default function Pillars() {
               <li
                 key={pillar.id}
                 data-reveal-item
-                className="group relative overflow-hidden rounded-[2rem] border border-black/8 bg-cream p-7 transition-colors duration-500 hover:bg-paper sm:p-9"
+                className="card-inset group relative overflow-hidden p-8 sm:p-10"
               >
                 <span
                   aria-hidden="true"
@@ -51,14 +51,14 @@ export default function Pillars() {
                   )}
                 />
                 <div className="flex items-start gap-5 sm:gap-7">
-                  <span className="font-heading text-[0.8rem] font-medium uppercase tracking-[0.2em] text-ink-soft/45">
+                  <span className="label-caps text-[0.68rem] text-ink-soft/45">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
-                    <h3 className="text-[1.3rem] leading-[1.2] sm:text-[1.55rem]">
+                    <h3 className="text-[1.3rem] leading-[1.15] tracking-[-0.03em] sm:text-[1.55rem]">
                       {pillar.title}
                     </h3>
-                    <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                    <p className="mt-3.5 text-[0.95rem] leading-[1.7] text-ink-soft">
                       {pillar.body}
                     </p>
                   </div>

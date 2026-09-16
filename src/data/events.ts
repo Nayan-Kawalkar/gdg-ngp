@@ -207,6 +207,60 @@ export const events: GdgEvent[] = [
   },
 ];
 
+/** Every format actually present in the data, in a stable display order. */
+export const eventFormats: EventFormat[] = [
+  "DevFest",
+  "Build with AI",
+  "Study Jam",
+  "Bootcamp",
+  "Workshop",
+  "Roadshow",
+  "Fireside Chat",
+];
+
+/** URL-safe slug for a format, so filters can live in the query string. */
+export function formatSlug(format: EventFormat): string {
+  return format.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function formatFromSlug(slug: string): EventFormat | undefined {
+  return eventFormats.find((f) => formatSlug(f) === slug);
+}
+
+export type EventQuery = {
+  status?: EventStatus | "all";
+  formats?: EventFormat[];
+  sort?: "newest" | "oldest";
+};
+
+/**
+ * The directory's single filter+sort entry point. Status and format narrow the
+ * set; sort orders it. Kept here rather than in the component so the About page,
+ * the directory and any future feed all agree on what "newest" means.
+ */
+export function queryEvents({
+  status = "all",
+  formats = [],
+  sort = "newest",
+}: EventQuery = {}): GdgEvent[] {
+  let list = status === "all" ? [...events] : events.filter((e) => e.status === status);
+  if (formats.length) list = list.filter((e) => formats.includes(e.format));
+
+  return list.sort((a, b) =>
+    sort === "newest" ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date),
+  );
+}
+
+/** Live counts for the directory hero - never hardcode these. */
+export function eventCounts() {
+  return {
+    total: events.length,
+    past: events.filter((e) => e.status === "past").length,
+    ongoing: events.filter((e) => e.status === "ongoing").length,
+    upcoming: events.filter((e) => e.status === "upcoming").length,
+  };
+}
+
 /** Newest first within a status - what a curated grid should show. */
 export function getEventsByStatus(status: EventStatus | "all"): GdgEvent[] {
   const list = status === "all" ? events : events.filter((e) => e.status === status);
