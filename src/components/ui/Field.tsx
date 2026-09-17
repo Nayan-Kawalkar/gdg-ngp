@@ -119,6 +119,41 @@ export function TextAreaField({
   );
 }
 
+export function SelectField({
+  label,
+  error,
+  options,
+  className,
+  ...props
+}: {
+  label: string;
+  error?: string;
+  options: readonly { value: string; label: string }[];
+} & React.SelectHTMLAttributes<HTMLSelectElement>) {
+  const id = useId();
+  const errorId = `${id}-error`;
+
+  return (
+    <div className={className}>
+      <Label htmlFor={id}>{label}</Label>
+      <select
+        id={id}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : undefined}
+        className={cn(base, "mt-2 appearance-none pr-10", error && invalid)}
+        {...props}
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <Error id={errorId} message={error} />
+    </div>
+  );
+}
+
 /** Multi-select rendered as toggle chips, exposed as a labelled checkbox group. */
 export function ChipGroupField({
   label,
