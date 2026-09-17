@@ -389,6 +389,33 @@ html.has-motion [data-image-reveal] {
   animation-play-state: paused;
 }
 
+/* Shine sweep for the mentor badge (PRD 8). The badge must clip it, so the
+   host needs `relative overflow-hidden`. */
+@keyframes gdg-shine {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(260%) skewX(-18deg);
+  }
+}
+.animate-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.65),
+    transparent
+  );
+  animation: gdg-shine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* Slow bob for decorative shapes */
 @keyframes gdg-floaty {
   0%,
@@ -429,8 +456,12 @@ html.lenis body {
     visibility: visible !important;
   }
   .animate-marquee,
-  .animate-floaty {
+  .animate-floaty,
+  .animate-shine::after {
     animation: none !important;
+  }
+  .animate-shine::after {
+    display: none;
   }
   *,
   *::before,
