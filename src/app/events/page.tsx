@@ -27,7 +27,7 @@ export default function EventsPage() {
     <>
       <EventsHero />
 
-      <Section tone="cream" className="pt-0">
+      <Section tone="cream" pad="bottom">
         <Container>
           {/* useSearchParams needs a Suspense boundary for this route to stay
               statically prerenderable. */}
@@ -37,7 +37,7 @@ export default function EventsPage() {
         </Container>
       </Section>
 
-      <Section tone="paper" className="py-0">
+      <Section tone="paper">
         <Container>
           <div className="card-inset flex flex-col items-start gap-6 p-9 sm:p-12 lg:flex-row lg:items-center lg:justify-between lg:p-14">
             <div>

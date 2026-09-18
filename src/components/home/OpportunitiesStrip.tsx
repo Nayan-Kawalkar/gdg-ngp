@@ -2,7 +2,7 @@ import { Container, Section, SectionHeader } from "@/components/ui/Section";
 import { ButtonLink, ArrowIcon } from "@/components/ui/Button";
 import Marquee from "@/components/ui/Marquee";
 import { IconPin } from "@/components/ui/Icons";
-import { opportunities, type Opportunity } from "@/data/home";
+import { opportunities, type Opportunity } from "@/data/opportunities";
 import { cn } from "@/lib/cn";
 
 const typeTint: Record<Opportunity["type"], string> = {
@@ -15,7 +15,7 @@ const typeTint: Record<Opportunity["type"], string> = {
 function OpportunityCard({ item }: { item: Opportunity }) {
   return (
     <a
-      href={item.href}
+      href="/opportunities"
       className="card-inset card-pop group mx-2.5 flex w-[19rem] shrink-0 flex-col p-7 sm:w-[21rem]"
     >
       <div className="flex items-center justify-between gap-3">
@@ -31,13 +31,13 @@ function OpportunityCard({ item }: { item: Opportunity }) {
       </div>
 
       <h3 className="mt-5 line-clamp-2 font-heading text-[1.15rem] leading-[1.15] tracking-[-0.03em]">
-        {item.role}
+        {item.title}
       </h3>
       <p className="mt-2 text-[0.9rem] text-ink-soft">{item.company}</p>
 
       <div className="mt-6 flex items-center gap-2 border-t border-ink/8 pt-4 text-[0.8rem] text-ink-soft/80">
         <IconPin className="size-3.5 shrink-0" />
-        <span className="truncate">{item.location}</span>
+        <span className="truncate">{item.city} &middot; {item.workMode}</span>
       </div>
       <p className="mt-2 text-[0.78rem] text-ink-soft/60">Posted by {item.postedBy}</p>
     </a>

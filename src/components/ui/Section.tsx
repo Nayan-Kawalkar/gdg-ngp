@@ -24,22 +24,32 @@ const tones: Record<Tone, string> = {
   ink: "bg-ink-deep text-white",
 };
 
+/**
+ * Vertical rhythm is a prop, not a className override: passing `py-0` through
+ * className does not reliably beat the default `py-20` - Tailwind resolves
+ * conflicting utilities by stylesheet order, not by order in the class list.
+ */
+const pads = {
+  both: "py-20 sm:py-24 lg:py-32",
+  bottom: "pb-20 sm:pb-24 lg:pb-32",
+  none: "",
+} as const;
+
 export function Section({
   id,
   tone = "cream",
+  pad = "both",
   className,
   children,
 }: {
   id?: string;
   tone?: Tone;
+  pad?: keyof typeof pads;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <section
-      id={id}
-      className={cn("relative py-20 sm:py-24 lg:py-32", tones[tone], className)}
-    >
+    <section id={id} className={cn("relative", pads[pad], tones[tone], className)}>
       {children}
     </section>
   );
