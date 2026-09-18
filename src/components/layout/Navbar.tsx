@@ -2,14 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { primaryNav, secondaryNav, socials } from "@/data/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { IconChevronDown } from "@/components/ui/Icons";
 import { cn } from "@/lib/cn";
 
+const darkHeroRoutes = ["/jobs-in-nagpur"];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // The transparent top-of-page state assumes a light hero. Routes whose hero is
+  // dark would lose the black wordmark and links against it, so they start in
+  // the solid pill state.
+  const darkHero = darkHeroRoutes.includes(pathname);
+  const solid = scrolled || darkHero;
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
@@ -62,7 +72,7 @@ export default function Navbar() {
           <nav
             className={cn(
               "flex items-center justify-between gap-4 rounded-full px-3 py-2 transition-all duration-500 sm:px-4",
-              scrolled
+              solid
                 ? "border border-black/8 bg-cream/80 backdrop-blur-xl"
                 : "border border-transparent bg-transparent",
             )}
