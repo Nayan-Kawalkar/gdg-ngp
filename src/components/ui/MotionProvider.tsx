@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import {
   gsap,
   ScrollTrigger,
@@ -35,6 +36,16 @@ const presets: Record<string, { from: gsap.TweenVars; to: gsap.TweenVars }> = {
  * invisible if JS fails or motion is off.
  */
 export default function MotionProvider() {
+  const pathname = usePathname();
+
+  /**
+   * Keyed on the pathname, not run once. This component lives in the root
+   * layout, which stays mounted across client-side navigations - so a
+   * run-once effect set up the first page and never saw any later one. Every
+   * reveal target on a navigated-to page then sat at visibility:hidden until a
+   * full reload. Re-running per route tears down the old page's triggers
+   * (ctx.revert) and wires up the new page's.
+   */
   useEffect(() => {
     const reduced = prefersReducedMotion();
     const coarse = isCoarsePointer();
@@ -46,7 +57,16 @@ export default function MotionProvider() {
     }
     root.classList.add("has-motion");
 
-    const ctx = gsap.context(() => {
+    let ctx: gsap.Context | undefined;
+    // Owns every pointer listener this run attaches. ctx.revert() only undoes
+    // GSAP tweens, so without this the navbar's magnetic button - which
+    // survives route changes - would gain another listener on every navigation.
+    const listeners = new AbortController();
+    const { signal } = listeners;
+    // One frame later, so measurements see the new route laid out rather than
+    // the frame in which it was swapped in.
+    const frame = requestAnimationFrame(() => {
+    ctx = gsap.context(() => {
       /**
        * Decide how a target should animate based on where it is right now.
        *
@@ -204,15 +224,23 @@ export default function MotionProvider() {
         const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3.out" });
         const yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3.out" });
 
-        el.addEventListener("pointermove", (event: PointerEvent) => {
-          const rect = el.getBoundingClientRect();
-          xTo((event.clientX - rect.left - rect.width / 2) * strength);
-          yTo((event.clientY - rect.top - rect.height / 2) * strength);
-        });
-        el.addEventListener("pointerleave", () => {
-          xTo(0);
-          yTo(0);
-        });
+        el.addEventListener(
+          "pointermove",
+          (event: PointerEvent) => {
+            const rect = el.getBoundingClientRect();
+            xTo((event.clientX - rect.left - rect.width / 2) * strength);
+            yTo((event.clientY - rect.top - rect.height / 2) * strength);
+          },
+          { signal },
+        );
+        el.addEventListener(
+          "pointerleave",
+          () => {
+            xTo(0);
+            yTo(0);
+          },
+          { signal },
+        );
       });
 
       /* ---------- mouse-reactive depth layers ---------- */
@@ -225,32 +253,41 @@ export default function MotionProvider() {
             yTo: gsap.quickTo(layer, "y", { duration: 0.9, ease: "power3.out" }),
           }));
 
-        section.addEventListener("pointermove", (event: PointerEvent) => {
-          const rect = section.getBoundingClientRect();
-          const x = event.clientX - rect.left - rect.width / 2;
-          const y = event.clientY - rect.top - rect.height / 2;
-          setters.forEach(({ depth, xTo, yTo }) => {
-            xTo(x * depth);
-            yTo(y * depth);
-          });
-        });
-        section.addEventListener("pointerleave", () =>
-          setters.forEach(({ xTo, yTo }) => {
-            xTo(0);
-            yTo(0);
-          }),
+        section.addEventListener(
+          "pointermove",
+          (event: PointerEvent) => {
+            const rect = section.getBoundingClientRect();
+            const x = event.clientX - rect.left - rect.width / 2;
+            const y = event.clientY - rect.top - rect.height / 2;
+            setters.forEach(({ depth, xTo, yTo }) => {
+              xTo(x * depth);
+              yTo(y * depth);
+            });
+          },
+          { signal },
+        );
+        section.addEventListener(
+          "pointerleave",
+          () =>
+            setters.forEach(({ xTo, yTo }) => {
+              xTo(0);
+              yTo(0);
+            }),
+          { signal },
         );
       });
     });
 
     // Fonts settle after first paint and move every measurement with them.
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    });
 
     return () => {
-      ctx.revert();
-      root.classList.remove("has-motion");
+      cancelAnimationFrame(frame);
+      listeners.abort();
+      ctx?.revert();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
