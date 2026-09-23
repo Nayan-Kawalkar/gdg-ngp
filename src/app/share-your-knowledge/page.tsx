@@ -126,7 +126,7 @@ export default function ShareYourKnowledgePage() {
       {/* Form */}
       <Section id="submit" tone="paper" className="scroll-mt-16">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
             <aside className="lg:sticky lg:top-28 lg:self-start">
               <Eyebrow>Submit</Eyebrow>
               <h2 data-motion-text="words" className="mt-5 text-[2rem] leading-[1.05] sm:text-[2.6rem]">

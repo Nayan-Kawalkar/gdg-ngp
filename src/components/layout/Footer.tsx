@@ -32,7 +32,7 @@ export default function Footer() {
 
       <Container className="relative">
         {/* Newsletter + identity */}
-        <div className="grid gap-12 border-b border-white/10 py-16 lg:grid-cols-[1.1fr_1fr] lg:gap-20 lg:py-20">
+        <div className="grid grid-cols-1 gap-12 border-b border-white/10 py-16 lg:grid-cols-[1.1fr_1fr] lg:gap-20 lg:py-20">
           <div>
             <Image
               src="/gdg-mark.svg"

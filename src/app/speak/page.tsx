@@ -98,7 +98,7 @@ export default function SpeakPage() {
 
       <Section id="apply" tone="cream" className="scroll-mt-20">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
             <aside className="lg:sticky lg:top-28 lg:self-start">
               <Eyebrow>How selection works</Eyebrow>
               <h2

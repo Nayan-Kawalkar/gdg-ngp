@@ -173,8 +173,10 @@ export default function CollaboratePage() {
       {/* Enquiry */}
       <Section id="enquire" tone="cream" className="scroll-mt-16">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
-            <aside className="lg:sticky lg:top-28 lg:self-start">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+            {/* min-w-0: a grid item's min width is its longest unbreakable string
+                (the email below), which pushed a 320px phone into sideways scroll. */}
+            <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">
               <Eyebrow>Get in touch</Eyebrow>
               <h2 data-motion-text="words" className="mt-5 text-[2rem] leading-[1.05] sm:text-[2.6rem]">
                 Start with a message.
@@ -198,7 +200,8 @@ export default function CollaboratePage() {
                       <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-black/8 bg-paper transition-colors duration-300 group-hover:bg-ink group-hover:text-white">
                         <Icon className="size-[1.1rem]" />
                       </span>
-                      <span className="min-w-0 break-words">{label}</span>
+                      {/* `anywhere`, not break-words: only it lowers the min-content width. */}
+                      <span className="min-w-0 [overflow-wrap:anywhere]">{label}</span>
                       <ArrowIcon className="ml-auto size-3.5 shrink-0 opacity-40" />
                     </a>
                   </li>

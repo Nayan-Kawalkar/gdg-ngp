@@ -182,7 +182,7 @@ export default function BecomeAMentorPage() {
       {/* Application */}
       <Section id="apply" tone="cream">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <div className="lg:sticky lg:top-28 lg:self-start">
               <Eyebrow>Apply</Eyebrow>
               <h2

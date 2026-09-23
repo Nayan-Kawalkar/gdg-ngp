@@ -57,7 +57,7 @@ export default function ShareOpportunityPage() {
 
       <Section tone="cream" pad="bottom">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
             <aside className="lg:sticky lg:top-28 lg:self-start">
               <Eyebrow>House rules</Eyebrow>
               <ul className="mt-6 space-y-4">

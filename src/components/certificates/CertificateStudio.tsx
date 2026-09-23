@@ -94,7 +94,7 @@ export default function CertificateStudio({
   }
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
       {/* Preview - first on phones, so people see what they are editing */}
       <div className="lg:order-2">
         <div className="lg:sticky lg:top-28">

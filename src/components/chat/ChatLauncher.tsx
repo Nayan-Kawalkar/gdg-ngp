@@ -48,7 +48,9 @@ export default function ChatLauncher() {
         aria-controls={loaded ? PANEL_ID : undefined}
         aria-label={open ? "Close chat" : "Ask GDG Nagpur a question"}
         className={cn(
-          "press fixed bottom-5 right-5 z-[55] flex size-14 items-center justify-center rounded-full bg-ink text-white transition-[transform,background-color] duration-300 hover:bg-ink-deep sm:bottom-6 sm:right-6",
+          // The white hairline is invisible on cream but keeps the ink button
+          // from dissolving into dark sections (heroes, footer).
+          "press fixed bottom-5 right-5 z-[55] flex size-14 items-center justify-center rounded-full bg-ink text-white ring-1 ring-white/25 transition-[transform,background-color] duration-300 hover:bg-ink-deep sm:bottom-6 sm:right-6",
           open && "max-sm:hidden",
         )}
       >
