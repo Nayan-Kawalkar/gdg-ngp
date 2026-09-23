@@ -21,6 +21,8 @@ export const socials = {
   chapter: "https://gdg.community.dev/gdg-nagpur/",
   discord: "#", // PLACEHOLDER - add the real Discord invite
   whatsapp: "#", // PLACEHOLDER - add the real WhatsApp community link
+  calendly: "#", // PLACEHOLDER - sponsor-call booking link
+  mediaKit: "#", // PLACEHOLDER - drop the sponsorship deck PDF into /public and link it
 } as const;
 
 export type CommunityChannel = {

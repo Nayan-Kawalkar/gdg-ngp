@@ -9,7 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { IconChevronDown } from "@/components/ui/Icons";
 import { cn } from "@/lib/cn";
 
-const darkHeroRoutes = ["/jobs-in-nagpur"];
+const darkHeroRoutes = ["/jobs-in-nagpur", "/collaborate", "/community"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
