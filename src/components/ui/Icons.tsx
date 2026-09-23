@@ -117,6 +117,104 @@ export function IconMail(props: IconProps) {
   );
 }
 
+export function IconMic(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" />
+    </svg>
+  );
+}
+
+export function IconGavel(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="m13.5 4.5 6 6M11 7l6 6M15.5 9.5 5 20M4 21h8" />
+    </svg>
+  );
+}
+
+export function IconVideo(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <rect x="3" y="6" width="13" height="12" rx="2.5" />
+      <path d="m16 10.5 5-3v9l-5-3" />
+    </svg>
+  );
+}
+
+export function IconPlay(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function IconChat(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="M20 11.5a7.5 7.5 0 0 1-11 6.63L4 19.5l1.37-4.5A7.5 7.5 0 1 1 20 11.5Z" />
+    </svg>
+  );
+}
+
+export function IconSend(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="M20.5 3.5 10 14M20.5 3.5 14 20.5l-4-6.5-6.5-4 17-6.5Z" />
+    </svg>
+  );
+}
+
+export function IconDownload(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M4.5 19.5h15" />
+    </svg>
+  );
+}
+
+export function IconUpload(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M4.5 19.5h15" />
+    </svg>
+  );
+}
+
+export function IconHandshake(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="m2.5 11 4-4.5 3 1 2.5-1.5 3 0 4 4.5M2.5 11l2 2M21.5 11l-2 2M8.5 15.5l2 2M11 13l3 3M13.5 10.5l3.5 3.5a1.4 1.4 0 0 1-2 2l-5-5-2 1.5a1.5 1.5 0 0 1-2-2l3-3" />
+    </svg>
+  );
+}
+
+export function IconMegaphone(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="M4 10v4a1.5 1.5 0 0 0 1.5 1.5H8l7 4V4.5l-7 4H5.5A1.5 1.5 0 0 0 4 10ZM8 15.5l1.2 4.5M18.5 9.5a3.5 3.5 0 0 1 0 5" />
+    </svg>
+  );
+}
+
+export function IconCheck(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="m5 12.5 4.5 4.5L19 7.5" />
+    </svg>
+  );
+}
+
+export function IconClose(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke} {...props}>
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
+  );
+}
+
 /* ---------------------------- Brand marks ----------------------------- */
 
 export function IconInstagram(props: IconProps) {

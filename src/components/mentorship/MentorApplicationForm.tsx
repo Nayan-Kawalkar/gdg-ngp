@@ -10,7 +10,8 @@ import {
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { MentorBadge } from "@/components/mentorship/MentorCard";
 import { expertiseAreas } from "@/data/mentors";
-import { site } from "@/data/site";
+import FormSuccess from "@/components/ui/FormSuccess";
+import { isBlank, isEmail, isLinkedIn, isShorterThan } from "@/lib/validate";
 
 type Values = {
   name: string;
@@ -47,24 +48,24 @@ const empty: Values = {
 function validate(values: Values): Errors {
   const errors: Errors = {};
 
-  if (!values.name.trim()) errors.name = "We need a name to put on the profile.";
-  if (!values.email.trim()) errors.email = "We need an email to reply to.";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim()))
+  if (isBlank(values.name)) errors.name = "We need a name to put on the profile.";
+  if (isBlank(values.email)) errors.email = "We need an email to reply to.";
+  else if (!isEmail(values.email))
     errors.email = "That does not look like an email address.";
 
-  if (!values.role.trim()) errors.role = "What is your current role?";
-  if (!values.company.trim()) errors.company = "Where do you work?";
+  if (isBlank(values.role)) errors.role = "What is your current role?";
+  if (isBlank(values.company)) errors.company = "Where do you work?";
 
-  if (!values.linkedin.trim())
+  if (isBlank(values.linkedin))
     errors.linkedin = "A LinkedIn profile is how we verify applications.";
-  else if (!/^(https?:\/\/)?([\w-]+\.)*linkedin\.com\/.+/i.test(values.linkedin.trim()))
+  else if (!isLinkedIn(values.linkedin))
     errors.linkedin = "That does not look like a LinkedIn URL.";
 
   if (!values.expertise.length)
     errors.expertise = "Pick at least one area you can help with.";
   if (!values.availability) errors.availability = "Let us know how much time you have.";
 
-  if (values.why.trim().length < 40)
+  if (isShorterThan(values.why, 40))
     errors.why = "A few sentences, so the review has something to go on.";
 
   return errors;
@@ -124,44 +125,33 @@ export default function MentorApplicationForm() {
 
   if (submitted) {
     return (
-      <div className="card-sticker p-8 sm:p-12">
-        <MentorBadge />
-        <h2 className="mt-6 text-[1.85rem] leading-tight tracking-[-0.035em] sm:text-[2.25rem]">
-          Application received
-        </h2>
-        <p className="mt-4 max-w-xl text-[1rem] leading-relaxed text-ink-soft">
-          The organizers review applications in batches, usually within a couple of weeks.
-          You would hear back either way at{" "}
-          <span className="font-medium text-ink">{values.email}</span> — if approved, your
-          profile goes live on the directory with the badge above.
-        </p>
-
-        <p className="mt-6 rounded-2xl bg-yellow-mist p-5 text-[0.9rem] leading-relaxed text-ink-soft">
-          <span className="font-medium text-ink">Heads up:</span> this form is not
-          connected to a backend yet, so nothing was actually submitted. Email{" "}
-          <a href={`mailto:${site.email}`} className="underline underline-offset-2">
-            {site.email}
-          </a>{" "}
-          if you want to apply today.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink href="/mentorship" variant="ink">
-            Back to mentorship
-          </ButtonLink>
-          <Button
-            onClick={() => {
-              setValues(empty);
-              setErrors({});
-              setSubmitted(false);
-            }}
-            variant="paper"
-            magnetic={false}
-          >
-            Submit another
-          </Button>
-        </div>
-      </div>
+      <FormSuccess
+        badge={<MentorBadge />}
+        title="Application received"
+        actions={
+          <>
+            <ButtonLink href="/mentorship" variant="ink">
+              Back to mentorship
+            </ButtonLink>
+            <Button
+              onClick={() => {
+                setValues(empty);
+                setErrors({});
+                setSubmitted(false);
+              }}
+              variant="paper"
+              magnetic={false}
+            >
+              Submit another
+            </Button>
+          </>
+        }
+      >
+        The organizers review applications in batches, usually within a couple of weeks.
+        You would hear back either way at{" "}
+        <span className="font-medium text-ink">{values.email}</span> — if approved, your
+        profile goes live on the directory with the badge above.
+      </FormSuccess>
     );
   }
 

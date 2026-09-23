@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import SegmentTabs from "@/components/ui/SegmentTabs";
 import { TextField, TextAreaField, SelectField } from "@/components/ui/Field";
 import { Button, ButtonLink } from "@/components/ui/Button";
-import { site } from "@/data/site";
+import FormSuccess from "@/components/ui/FormSuccess";
+import { isBlank, isEmail, isPastDate, isShorterThan, isUrl } from "@/lib/validate";
 
 type Kind = "job" | "internship" | "scholarship" | "help";
 
@@ -78,30 +79,29 @@ const copy: Record<Kind, { title: string; titleHint: string; company: string; de
   },
 };
 
-const isUrl = (v: string) => /^(https?:\/\/)[^\s.]+\.[^\s]{2,}/i.test(v.trim());
 
 function validate(kind: Kind, v: Values): Errors {
   const shown = fieldsFor[kind];
   const e: Errors = {};
 
-  if (!v.title.trim()) e.title = "This needs a title.";
-  if (shown.includes("company") && !v.company.trim())
+  if (isBlank(v.title)) e.title = "This needs a title.";
+  if (shown.includes("company") && isBlank(v.company))
     e.company = kind === "scholarship" ? "Who offers it?" : "Which company is hiring?";
-  if (shown.includes("city") && !v.city.trim()) e.city = "Where is it based?";
+  if (shown.includes("city") && isBlank(v.city)) e.city = "Where is it based?";
   if (shown.includes("workMode") && !v.workMode) e.workMode = "On-site, hybrid or remote?";
-  if (shown.includes("eligibility") && !v.eligibility.trim())
+  if (shown.includes("eligibility") && isBlank(v.eligibility))
     e.eligibility = "Who can apply?";
   if (shown.includes("link")) {
-    if (!v.link.trim()) e.link = "Where do people apply?";
+    if (isBlank(v.link)) e.link = "Where do people apply?";
     else if (!isUrl(v.link)) e.link = "Use a full link starting with https://";
   }
-  if (shown.includes("deadline") && v.deadline && v.deadline < new Date().toISOString().slice(0, 10))
+  if (shown.includes("deadline") && isPastDate(v.deadline))
     e.deadline = "That date has already passed.";
-  if (v.description.trim().length < 40)
+  if (isShorterThan(v.description, 40))
     e.description = "A few sentences, so people know whether it is for them.";
-  if (!v.name.trim()) e.name = "Listings credit whoever shared them.";
-  if (!v.email.trim()) e.email = "We need an email in case the review has a question.";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email.trim()))
+  if (isBlank(v.name)) e.name = "Listings credit whoever shared them.";
+  if (isBlank(v.email)) e.email = "We need an email in case the review has a question.";
+  else if (!isEmail(v.email))
     e.email = "That does not look like an email address.";
 
   return e;
@@ -162,41 +162,31 @@ export default function ShareOpportunityForm() {
 
   if (submitted) {
     return (
-      <div className="card-sticker p-8 sm:p-12">
-        <span className="label-caps text-ink-soft/60">In review</span>
-        <h2 className="mt-4 text-[1.85rem] leading-tight tracking-[-0.035em] sm:text-[2.25rem]">
-          Thanks, {values.name.split(" ")[0]}.
-        </h2>
-        <p className="mt-4 max-w-xl text-[1rem] leading-relaxed text-ink-soft">
-          &ldquo;{values.title}&rdquo; would now be in the review queue. Once approved it
-          goes live on the board with you credited, and we would email{" "}
-          <span className="font-medium text-ink">{values.email}</span> either way.
-        </p>
-        <p className="mt-6 rounded-2xl bg-yellow-mist p-5 text-[0.9rem] leading-relaxed text-ink-soft">
-          <span className="font-medium text-ink">Heads up:</span> this form is not
-          connected to a backend yet, so nothing was actually submitted. Email{" "}
-          <a href={`mailto:${site.email}`} className="underline underline-offset-2">
-            {site.email}
-          </a>{" "}
-          to share something today.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink href="/opportunities" variant="ink">
-            Back to the board
-          </ButtonLink>
-          <Button
-            onClick={() => {
-              setValues(empty);
-              setErrors({});
-              setSubmitted(false);
-            }}
-            variant="paper"
-            magnetic={false}
-          >
-            Share another
-          </Button>
-        </div>
-      </div>
+      <FormSuccess
+        title={<>Thanks, {values.name.split(" ")[0]}.</>}
+        actions={
+          <>
+            <ButtonLink href="/opportunities" variant="ink">
+              Back to the board
+            </ButtonLink>
+            <Button
+              onClick={() => {
+                setValues(empty);
+                setErrors({});
+                setSubmitted(false);
+              }}
+              variant="paper"
+              magnetic={false}
+            >
+              Share another
+            </Button>
+          </>
+        }
+      >
+        &ldquo;{values.title}&rdquo; would now be in the review queue. Once approved it goes
+        live on the board with you credited, and we would email{" "}
+        <span className="font-medium text-ink">{values.email}</span> either way.
+      </FormSuccess>
     );
   }
 

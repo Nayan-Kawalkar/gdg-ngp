@@ -70,49 +70,6 @@ export const topics: string[] = [
   "Career Growth",
 ];
 
-export type NewsItem = {
-  id: string;
-  source: string;
-  category: "AI" | "Web" | "Mobile" | "Cloud" | "Career" | "Industry";
-  headline: string;
-  summary: string;
-  href: string;
-  publishedAt: string;
-};
-
-export const newsItems: NewsItem[] = [
-  {
-    id: "news-001",
-    source: "Google Developers Blog",
-    category: "AI",
-    headline: "Gemini gets long-running agent sessions",
-    summary:
-      "Agents can now hold a task across hours instead of a single call, which changes what a hackathon team can realistically ship in a weekend.",
-    href: "#",
-    publishedAt: "2026-09-12",
-  },
-  {
-    id: "news-002",
-    source: "Chrome Developers",
-    category: "Web",
-    headline: "Baseline 2026 lands: what you can finally stop polyfilling",
-    summary:
-      "Container queries, :has() and view transitions are now safe across every browser Nagpur users actually open. Time to delete some code.",
-    href: "#",
-    publishedAt: "2026-09-09",
-  },
-  {
-    id: "news-003",
-    source: "Android Developers",
-    category: "Mobile",
-    headline: "Compose adaptive layouts become the default",
-    summary:
-      "The new guidance treats foldables and tablets as first-class rather than an afterthought, with a migration path that is mostly deletion.",
-    href: "#",
-    publishedAt: "2026-09-05",
-  },
-];
-
 export type TeamMember = {
   id: string;
   name: string;
