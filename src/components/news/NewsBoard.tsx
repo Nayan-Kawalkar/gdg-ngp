@@ -61,7 +61,8 @@ export default function NewsBoard({ leadId }: { leadId?: string }) {
     <>
       {/* Seven tabs do not fit 375px at a readable size, so the bar scrolls
           sideways on small screens instead of squeezing the labels. */}
-      <div className="mask-edges-x -mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0 sm:[mask-image:none]">
+      {/* .mask-edges-x sets both mask properties, so both are cleared from sm up. */}
+      <div className="mask-edges-x -mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0 sm:[-webkit-mask-image:none] sm:[mask-image:none]">
         <SegmentTabs
           options={tabs}
           value={key}
