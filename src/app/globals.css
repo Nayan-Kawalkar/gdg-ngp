@@ -430,6 +430,42 @@ html.has-motion [data-image-reveal] {
   animation: gdg-floaty 7s ease-in-out infinite;
 }
 
+/* Chat widget (components/chat). The panel springs up from the launcher
+   corner each time it is un-hidden; bubbles rise in; the typing indicator
+   bounces the four brand dots in sequence. */
+@keyframes gdg-chat-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+}
+.chat-panel:not([hidden]) {
+  transform-origin: bottom right;
+  animation: gdg-chat-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes gdg-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.chat-bubble {
+  animation: gdg-bubble-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes gdg-typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-5px);
+  }
+}
+.chat-typing-dot {
+  animation: gdg-typing 0.9s ease-in-out infinite;
+}
+
 /* Lenis */
 html.lenis,
 html.lenis body {
