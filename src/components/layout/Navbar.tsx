@@ -63,6 +63,8 @@ export default function Navbar() {
   return (
     <>
       <header
+        // Anchored during page transitions - see globals.css.
+        style={{ viewTransitionName: "site-header" }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
           scrolled ? "py-2.5" : "py-4",

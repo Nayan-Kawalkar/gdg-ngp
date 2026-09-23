@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ViewTransition } from "react";
 import { ArrowIcon } from "@/components/ui/Button";
 import { IconClock, IconPin, IconUsers } from "@/components/ui/Icons";
 import { Ring } from "@/components/ui/Shapes";
@@ -67,58 +68,66 @@ export default function EventCard({ event }: { event: GdgEvent }) {
       data-reveal-item
       className="card-sticker card-pop group relative flex flex-col overflow-hidden"
     >
-      {/* Banner */}
-      <div className={cn("relative h-44 overflow-hidden sm:h-48", accent.tint)}>
-        {event.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={event.imageUrl}
-            alt=""
-            className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-          />
-        ) : (
-          /* Flat tonal placeholder: one concentric motif anchored off the bottom-right
-             corner, so it reads as deliberate geometry rather than stray blobs. */
-          <div
-            aria-hidden="true"
-            className="absolute -bottom-20 -right-16 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
-          >
-            <Ring className={cn("w-56 opacity-45", accent.ink)} />
-            <span
-              className={cn(
-                "absolute left-1/2 top-1/2 block size-16 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60",
-                accent.core,
-              )}
-            />
-          </div>
-        )}
-
-        {/* Barely-there vignette so chips always sit on a settled ground */}
+      {/* Banner. Named so it morphs into the detail page's hero on navigation;
+          the top radius matches the card so the snapshot is not square. */}
+      <ViewTransition name={`event-${event.slug}`} share="morph" default="none">
         <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-b from-white/35 via-transparent to-black/[0.04]"
-        />
-
-        <span className="chip label-caps absolute left-5 top-5 px-3 py-1.5 text-[0.68rem]">
-          {event.format}
-        </span>
-
-        <span
           className={cn(
-            "chip absolute bottom-5 left-5 px-3 py-1.5 text-[0.72rem] font-medium",
-            event.status === "ongoing" && "text-green-deep",
-            event.status === "upcoming" && accent.deep,
+            "relative h-44 overflow-hidden rounded-t-[calc(var(--radius-3xl)-1px)] sm:h-48",
+            accent.tint,
           )}
         >
-          {event.status === "ongoing" ? (
-            <span className="relative flex size-1.5">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-green opacity-70" />
-              <span className="relative inline-flex size-1.5 rounded-full bg-brand-green" />
-            </span>
-          ) : null}
-          {statusLabel[event.status]}
-        </span>
-      </div>
+          {event.imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={event.imageUrl}
+              alt=""
+              className="size-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            />
+          ) : (
+            /* Flat tonal placeholder: one concentric motif anchored off the bottom-right
+               corner, so it reads as deliberate geometry rather than stray blobs. */
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-20 -right-16 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+            >
+              <Ring className={cn("w-56 opacity-45", accent.ink)} />
+              <span
+                className={cn(
+                  "absolute left-1/2 top-1/2 block size-16 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60",
+                  accent.core,
+                )}
+              />
+            </div>
+          )}
+
+          {/* Barely-there vignette so chips always sit on a settled ground */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-b from-white/35 via-transparent to-black/[0.04]"
+          />
+
+          <span className="chip label-caps absolute left-5 top-5 px-3 py-1.5 text-[0.68rem]">
+            {event.format}
+          </span>
+
+          <span
+            className={cn(
+              "chip absolute bottom-5 left-5 px-3 py-1.5 text-[0.72rem] font-medium",
+              event.status === "ongoing" && "text-green-deep",
+              event.status === "upcoming" && accent.deep,
+            )}
+          >
+            {event.status === "ongoing" ? (
+              <span className="relative flex size-1.5">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-green opacity-70" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-brand-green" />
+              </span>
+            ) : null}
+            {statusLabel[event.status]}
+          </span>
+        </div>
+      </ViewTransition>
 
       {/* Body */}
       <div className="flex flex-1 flex-col p-7 sm:p-8">

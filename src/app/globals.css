@@ -446,6 +446,65 @@ html.lenis body {
 }
 
 /* ==========================================================
+   PAGE TRANSITIONS  (paired with app/template.tsx)
+   Old page fades out quickly; the new one rises 14px and
+   fades in just behind it. The fixed header is anchored so
+   the content visibly moves, not the whole viewport.
+   ========================================================== */
+::view-transition {
+  /* Clicks during the ~0.5s transition reach the live page. */
+  pointer-events: none;
+}
+
+::view-transition-old(.page-exit) {
+  animation: 180ms ease-in both gdg-vt-out;
+}
+::view-transition-new(.page-enter) {
+  animation: 420ms cubic-bezier(0.16, 1, 0.3, 1) 110ms both gdg-vt-in;
+}
+
+@keyframes gdg-vt-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes gdg-vt-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Event card banner -> event detail hero */
+::view-transition-group(.morph) {
+  animation-duration: 480ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: gdg-vt-soften;
+}
+@keyframes gdg-vt-soften {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+/* ==========================================================
    REDUCED MOTION
    ========================================================== */
 @media (prefers-reduced-motion: reduce) {
@@ -462,6 +521,13 @@ html.lenis body {
   }
   .animate-shine::after {
     display: none;
+  }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
   *,
   *::before,
