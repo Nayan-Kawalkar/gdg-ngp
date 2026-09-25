@@ -77,46 +77,53 @@
 
 /* ==========================================================
    BASE
+   Inside @layer base on purpose. Tailwind v4 puts utilities in
+   @layer utilities, and any UNLAYERED rule beats every layered
+   one regardless of specificity - so while these sat outside a
+   layer, `margin: 0` on headings silently cancelled every
+   `mt-*`, `leading-*` and `tracking-*` class on an h1-h4.
    ========================================================== */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-html {
-  -webkit-text-size-adjust: 100%;
-}
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
 
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  color: var(--color-ink);
-  background-color: var(--color-cream);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* `clip`, not `hidden`: `overflow-x: hidden` promotes body to a scroll
-     container, which breaks ScrollTrigger's scroller detection and stops every
-     reveal below the fold from firing. */
-  overflow-x: clip;
-}
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background-color: var(--color-cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* `clip`, not `hidden`: `overflow-x: hidden` promotes body to a scroll
+       container, which breaks ScrollTrigger's scroller detection and stops every
+       reveal below the fold from firing. */
+    overflow-x: clip;
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading);
-  letter-spacing: -0.035em;
-  line-height: 1.03;
-  margin: 0;
-}
-h1 {
-  letter-spacing: -0.045em;
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.035em;
+    line-height: 1.03;
+    margin: 0;
+  }
+  h1 {
+    letter-spacing: -0.045em;
+  }
 
-::selection {
-  background: var(--color-brand-yellow);
-  color: var(--color-ink);
+  ::selection {
+    background: var(--color-brand-yellow);
+    color: var(--color-ink);
+  }
 }
 
 :focus-visible {
@@ -327,7 +334,9 @@ h1 {
 }
 
 /* Edge fade masks for marquees */
-.mask-edges-x {
+/* A real utility (not a bare class) so it lives in the utilities layer and a
+   responsive override such as `sm:[mask-image:none]` can actually beat it. */
+@utility mask-edges-x {
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
