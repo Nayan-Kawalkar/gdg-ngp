@@ -84,14 +84,16 @@ export default function Navbar() {
               className="press flex shrink-0 items-center rounded-full pl-1.5 pr-2"
               aria-label="GDG Nagpur, home"
             >
+              {/* The SVG's viewBox is cropped to the artwork, so this height is
+                  the logo's real visible height - no built-in padding. */}
               <Image
                 src="/gdg-logo.svg"
                 alt="GDG Nagpur"
-                width={296}
-                height={84}
+                width={1156}
+                height={192}
                 priority
                 style={{ width: "auto" }}
-                className="h-6 w-auto sm:h-7"
+                className="h-7 w-auto sm:h-8"
               />
             </Link>
 
@@ -203,8 +205,8 @@ export default function Navbar() {
             <Image
               src="/gdg-logo.svg"
               alt="GDG Nagpur"
-              width={296}
-              height={84}
+              width={1156}
+              height={192}
               style={{ width: "auto" }}
               className="h-7 w-auto"
             />
