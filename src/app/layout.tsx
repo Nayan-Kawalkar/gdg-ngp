@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import MotionProvider from "@/components/ui/MotionProvider";
 import ChatLauncher from "@/components/chat/ChatLauncher";
+import SiteFrame from "@/components/layout/SiteFrame";
 
 /**
  * Google Sans is Google's brand typeface, self-hosted here for a GDG chapter
@@ -80,10 +81,9 @@ export default function RootLayout({
         </a>
         <SmoothScroll />
         <MotionProvider />
-        <Navbar />
-        <main id="main">{children}</main>
-        <Footer />
-        <ChatLauncher />
+        <SiteFrame navbar={<Navbar />} footer={<Footer />} chat={<ChatLauncher />}>
+          {children}
+        </SiteFrame>
       </body>
     </html>
   );
