@@ -73,6 +73,28 @@
   /* ---- Motion ---- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- DevFest 2026 (/devfest) - from Devfest/styling.jpeg ---- */
+  --color-df-blue: #054eae;
+  --color-df-orange: #fe4c01;
+  --color-df-amber: #fe640c;
+  --color-df-sky: #1e84d1;
+  --color-df-navy: #041e44;
+  --color-df-midnight: #052451;
+  --color-df-paper: #fcfcfc;
+  --color-df-mist: #e3eaf2;
+  --color-df-steel: #a2b1c6;
+  --color-df-slate: #42566f;
+  --color-df-ink: #0d1a2a;
+}
+
+/* DevFest fonts. `inline` because Poppins (primary) and Caveat (the
+   hand-written note) are defined on the /devfest layout's wrapper, not on
+   <html>: an ordinary @theme variable would resolve at :root, find them
+   missing, and silently fall back. Google Sans (secondary) is global. */
+@theme inline {
+  --font-df: var(--font-poppins), var(--font-google-sans), system-ui, sans-serif;
+  --font-df-script: var(--font-caveat), cursive;
 }
 
 /* ==========================================================
@@ -475,6 +497,148 @@ html.has-motion [data-image-reveal] {
   animation: gdg-typing 0.9s ease-in-out infinite;
 }
 
+/* DevFest: dashed flight paths drift along their curve (components/devfest/ui.tsx) */
+@keyframes df-dash {
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+.df-dash {
+  animation: df-dash 2.6s linear infinite;
+}
+/* DevFest: content swapped in place (the route panel) eases up into view */
+@keyframes df-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.df-fade-up {
+  animation: df-fade-up 0.5s var(--ease-out-expo) both;
+}
+
+/* ----------------------------------------------------------
+   DevFest airport pieces. In @layer components so Tailwind
+   utilities on the same elements still win.
+   ---------------------------------------------------------- */
+@layer components {
+  /* Split-flap board cells (components/devfest/SplitFlap.tsx). Sized in em,
+     so the font-size on the board sets the cell size. --flap-fg / --flap-bg
+     recolour a board. */
+  .df-flap {
+    display: inline-flex;
+    max-width: 100%;
+  }
+  .df-flap-row {
+    display: inline-flex;
+    gap: 0.14em;
+  }
+  .df-flap-cell {
+    position: relative;
+    display: inline-flex;
+    width: 1.12em;
+    height: 1.5em;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.16em;
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.07) 0 50%, rgb(0 0 0 / 0.14) 50% 100%),
+      var(--flap-bg, var(--color-df-ink));
+    color: var(--flap-fg, white);
+    font-family: var(--font-df);
+    font-weight: 600;
+    line-height: 1;
+    perspective: 10em;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 1px 2px rgb(0 0 0 / 0.35);
+  }
+  /* the hinge line across the middle of every flap */
+  .df-flap-cell::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 1px;
+    background: rgb(0 0 0 / 0.55);
+  }
+  .df-flap-leaf {
+    display: block;
+    transform-origin: 50% 50%;
+    backface-visibility: hidden;
+  }
+
+  /* Baggage belt under the topic bags (components/devfest/TopicStrip.tsx):
+     a steel lip over rubber plates. Each bag carries its own stretch of belt,
+     so the belt moves with the bags. */
+  .df-belt {
+    background:
+      linear-gradient(var(--color-df-steel), var(--color-df-steel)) left bottom 1.15rem / 100% 3px no-repeat,
+      linear-gradient(var(--color-df-ink), var(--color-df-ink)) left bottom / 100% 0.35rem no-repeat,
+      repeating-linear-gradient(
+          90deg,
+          var(--color-df-slate) 0 1.45rem,
+          var(--color-df-ink) 1.45rem 1.55rem
+        )
+        left bottom 0.35rem / 100% 0.8rem no-repeat;
+  }
+}
+
+/* Luggage tags swing on their string (About window) */
+@keyframes df-sway {
+  0%,
+  100% {
+    rotate: -3deg;
+  }
+  50% {
+    rotate: 3deg;
+  }
+}
+.df-sway {
+  transform-origin: 50% 0;
+  animation: df-sway 4.5s ease-in-out infinite;
+}
+
+/* A passport stamp hitting the page */
+@keyframes df-stamp {
+  0% {
+    opacity: 0;
+    scale: 1.9;
+  }
+  55% {
+    opacity: 1;
+    scale: 0.94;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+.df-stamp-in {
+  animation: df-stamp 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+/* Something small asking to be noticed (the passport button on a new stamp) */
+@keyframes df-bounce {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  30% {
+    translate: 0 -10px;
+  }
+  60% {
+    translate: 0 0;
+  }
+  80% {
+    translate: 0 -4px;
+  }
+}
+.df-bounce {
+  animation: df-bounce 0.8s ease-out;
+}
+
 /* Lenis */
 html.lenis,
 html.lenis body {
@@ -561,7 +725,12 @@ html.lenis body {
   }
   .animate-marquee,
   .animate-floaty,
-  .animate-shine::after {
+  .animate-shine::after,
+  .df-dash,
+  .df-fade-up,
+  .df-sway,
+  .df-stamp-in,
+  .df-bounce {
     animation: none !important;
   }
   .animate-shine::after {

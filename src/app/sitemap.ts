@@ -7,6 +7,7 @@ const base = "https://gdgnagpur.dev";
 const routes: { path: string; priority: number; freq: "weekly" | "monthly" | "yearly" }[] = [
   { path: "", priority: 1, freq: "weekly" },
   { path: "/events", priority: 0.9, freq: "weekly" },
+  { path: "/devfest", priority: 0.9, freq: "weekly" },
   { path: "/jobs-in-nagpur", priority: 0.9, freq: "weekly" },
   { path: "/opportunities", priority: 0.8, freq: "weekly" },
   { path: "/tech-news", priority: 0.7, freq: "weekly" },
