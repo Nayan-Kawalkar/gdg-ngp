@@ -5,6 +5,8 @@
  * Replace the `#` values with the real invites before launch.
  */
 
+import { devfestDates } from "@/data/devfest";
+
 export const site = {
   name: "GDG Nagpur",
   fullName: "Google Developer Groups Nagpur",
@@ -65,6 +67,28 @@ export type NavLink = {
   label: string;
   href: string;
   description?: string;
+};
+
+/**
+ * The event the navbar spotlights: an orange pill after the main links
+ * (with a days-to-go badge from 1280px up) and the first item in the phone
+ * menu. Set it to `null` to take it down, e.g. once DevFest is over - the
+ * badge already disappears by itself after `endsAt`.
+ */
+export const navSpotlight: {
+  label: string;
+  short: string;
+  href: string;
+  when: string;
+  startsAt: string;
+  endsAt: string;
+} | null = {
+  label: "DevFest 2026",
+  short: "DevFest",
+  href: "/devfest",
+  when: "12 & 13 December",
+  startsAt: devfestDates.start,
+  endsAt: devfestDates.end,
 };
 
 export const primaryNav: NavLink[] = [

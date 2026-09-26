@@ -11,7 +11,8 @@ import { devfestHero } from "@/data/devfest";
  * sky side, the DevFest lockup, orange + outline pills, and the hand-written
  * "Nagpur On a Higher Trajectory" note, whose planes fly their dashed paths
  * and drift with the pointer. The departures board runs along the foot, so
- * the countdown is on the first screen.
+ * the countdown is on the first screen. (The jet that takes off as you
+ * scroll away is TakeoffPlane, mounted beside this section in the page.)
  */
 export default function DevfestHero() {
   return (

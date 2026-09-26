@@ -4,12 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { primaryNav, secondaryNav, socials } from "@/data/site";
+import { navSpotlight, primaryNav, secondaryNav, socials } from "@/data/site";
 import { ButtonLink } from "@/components/ui/Button";
+import { SpotlightCard, SpotlightPill } from "@/components/layout/NavSpotlight";
 import { IconChevronDown } from "@/components/ui/Icons";
 import { cn } from "@/lib/cn";
 
 const darkHeroRoutes = ["/jobs-in-nagpur", "/collaborate", "/community"];
+
+// With an event pill in the bar, the links tighten a little between 1024 and
+// 1280px so everything still fits on one line.
+const linkPad = navSpotlight ? "px-2.5 text-[0.86rem] xl:px-3.5 xl:text-[0.9rem]" : "px-3.5 text-[0.9rem]";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -103,11 +108,16 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="press rounded-full px-3.5 py-2 text-[0.9rem] font-medium text-ink-soft hover:bg-ink/5 hover:text-ink"
+                  className={cn(
+                    "press rounded-full py-2 font-medium text-ink-soft hover:bg-ink/5 hover:text-ink",
+                    linkPad,
+                  )}
                 >
                   {item.label}
                 </Link>
               ))}
+
+              <SpotlightPill />
 
               <div ref={moreRef} className="relative">
                 <button
@@ -115,7 +125,8 @@ export default function Navbar() {
                   onClick={() => setMoreOpen((v) => !v)}
                   aria-expanded={moreOpen}
                   className={cn(
-                    "press flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.9rem] font-medium hover:bg-ink/5 hover:text-ink",
+                    "press flex items-center gap-1 rounded-full py-2 font-medium hover:bg-ink/5 hover:text-ink",
+                    linkPad,
                     moreOpen ? "bg-ink/5 text-ink" : "text-ink-soft",
                   )}
                 >
@@ -220,7 +231,16 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="mt-8 flex flex-col">
+          <SpotlightCard
+            onNavigate={() => setMenuOpen(false)}
+            style={{ transitionDelay: menuOpen ? "40ms" : "0ms" }}
+            className={cn(
+              "mt-7 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+              menuOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+            )}
+          />
+
+          <div className={cn("flex flex-col", navSpotlight ? "mt-4" : "mt-8")}>
             {[...primaryNav, ...secondaryNav].map((item, i) => (
               <Link
                 key={item.href}

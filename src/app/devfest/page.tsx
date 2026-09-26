@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DevfestHero from "@/components/devfest/DevfestHero";
+import TakeoffPlane from "@/components/devfest/TakeoffPlane";
 import TopicStrip from "@/components/devfest/TopicStrip";
 import ThemeSection from "@/components/devfest/ThemeSection";
 import StatsStrip from "@/components/devfest/StatsStrip";
@@ -39,6 +40,9 @@ export default function DevfestPage() {
   return (
     <>
       <DevfestHero />
+      {/* Outside the hero on purpose: the hero is its own stacking context,
+          and the jet has to fly over the sections that follow it. */}
+      <TakeoffPlane heroId="top" />
       <TopicStrip />
       <ThemeSection />
       <StatsStrip />
