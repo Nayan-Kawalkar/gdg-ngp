@@ -2,7 +2,7 @@
 
 import { IconClock, IconPin } from "@/components/ui/Icons";
 import { ArrowIcon } from "@/components/ui/Button";
-import type { Opportunity, OpportunityType } from "@/data/opportunities";
+import { placeLabel, type Opportunity, type OpportunityType } from "@/data/opportunities";
 import { formatNewsDate } from "@/lib/format";
 import { cn } from "@/lib/cn";
 
@@ -76,7 +76,7 @@ export default function OpportunityCard({
       <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[0.82rem] text-ink-soft">
         <span className="inline-flex items-center gap-1.5">
           <IconPin className="size-3.5 text-ink-soft/50" />
-          {item.city} &middot; {item.workMode}
+          {placeLabel(item)}
         </span>
         {item.deadline ? (
           <span className="inline-flex items-center gap-1.5">

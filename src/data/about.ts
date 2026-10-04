@@ -57,9 +57,9 @@ export const milestones: Milestone[] = [
     accent: "blue",
   },
   {
-    id: "two-thousand",
+    id: "fifteen-thousand",
     year: "2026",
-    title: "Two thousand members, still volunteer-run",
+    title: "15,000+ members, still volunteer-run",
     body: "Fifty events in, the chapter has never charged for a ticket. The mentor platform and the opportunity board are the next things to get right.",
     tag: "Today",
     accent: "red",

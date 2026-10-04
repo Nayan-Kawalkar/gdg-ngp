@@ -49,7 +49,7 @@ export type Stat = {
 };
 
 export const stats: Stat[] = [
-  { id: "members", value: 2000, suffix: "+", label: "Community members", accent: "blue" },
+  { id: "members", value: 15000, suffix: "+", label: "Community members", accent: "blue" },
   { id: "events", value: 50, suffix: "+", label: "Events run", accent: "red" },
   { id: "speakers", value: 100, suffix: "+", label: "Speakers hosted", accent: "yellow" },
   { id: "mentors", value: 25, suffix: "+", label: "Mentors onboarded", accent: "green" },

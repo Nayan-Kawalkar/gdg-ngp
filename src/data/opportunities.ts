@@ -1,9 +1,11 @@
 /**
  * Opportunity board.
  *
- * TODO(opportunities): every listing and company below is a PLACEHOLDER. They
- * exist so the board, filters and Jobs-in-Nagpur page are real. Replace with
- * reviewed community submissions before launch.
+ * TODO(opportunities): the listings below are sample data. The ones with a
+ * placeholder company ("Placeholder Systems" and so on) are marked `draft`
+ * and are not shown anywhere on the site - give one a real company and
+ * remove `draft` to publish it, or replace them with reviewed community
+ * submissions. The same goes for the hiring companies.
  */
 
 export type OpportunityType = "Job" | "Internship" | "Scholarship" | "1:1 Help";
@@ -25,6 +27,8 @@ export type Opportunity = {
   applyUrl: string;
   postedBy: string;
   posterRole?: string;
+  /** Kept in this file but hidden on the site (e.g. no real company yet). */
+  draft?: boolean;
 };
 
 export const opportunityTypes: OpportunityType[] = [
@@ -42,12 +46,14 @@ export function typeFromSlug(slug: string): OpportunityType | undefined {
   return opportunityTypes.find((t) => typeSlug(t) === slug);
 }
 
-export const opportunities: Opportunity[] = [
+/** Every listing, drafts included. The site uses `opportunities` below. */
+const allOpportunities: Opportunity[] = [
   {
     id: "opp-001",
     type: "Job",
     title: "Frontend Engineer, React",
     company: "Placeholder Systems",
+    draft: true,
     city: "Nagpur",
     workMode: "Hybrid",
     description:
@@ -63,6 +69,7 @@ export const opportunities: Opportunity[] = [
     type: "Internship",
     title: "ML Intern, Applied NLP",
     company: "Placeholder Analytics",
+    draft: true,
     city: "Nagpur",
     workMode: "On-site",
     description:
@@ -92,6 +99,7 @@ export const opportunities: Opportunity[] = [
     type: "Job",
     title: "Backend Engineer, Node + Postgres",
     company: "Placeholder Tech",
+    draft: true,
     city: "Nagpur",
     workMode: "Hybrid",
     description:
@@ -120,6 +128,7 @@ export const opportunities: Opportunity[] = [
     type: "Internship",
     title: "UI/UX Design Intern",
     company: "Placeholder Studio",
+    draft: true,
     city: "Nagpur",
     workMode: "On-site",
     description:
@@ -135,6 +144,7 @@ export const opportunities: Opportunity[] = [
     type: "Job",
     title: "Android Engineer, Kotlin",
     company: "Placeholder Mobility",
+    draft: true,
     city: "Pune",
     workMode: "Remote",
     description:
@@ -164,6 +174,7 @@ export const opportunities: Opportunity[] = [
     type: "Job",
     title: "DevOps Engineer, GCP",
     company: "Placeholder Cloud",
+    draft: true,
     city: "Nagpur",
     workMode: "On-site",
     description:
@@ -193,6 +204,7 @@ export const opportunities: Opportunity[] = [
     type: "Internship",
     title: "Cloud Support Intern",
     company: "Placeholder Cloud",
+    draft: true,
     city: "Nagpur",
     workMode: "Hybrid",
     description:
@@ -207,6 +219,7 @@ export const opportunities: Opportunity[] = [
     type: "Job",
     title: "Product Designer",
     company: "Placeholder Health",
+    draft: true,
     city: "Bengaluru",
     workMode: "Hybrid",
     description:
@@ -218,20 +231,33 @@ export const opportunities: Opportunity[] = [
   },
 ];
 
+/** The listings the site shows: everything that is not a draft. */
+export const opportunities: Opportunity[] = allOpportunities.filter((o) => !o.draft);
+
+/** "Nagpur · Hybrid", or just "Remote" when the place and the mode say the same thing. */
+export function placeLabel({ city, workMode }: Pick<Opportunity, "city" | "workMode">): string {
+  return city === workMode ? city : `${city} · ${workMode}`;
+}
+
 export type Company = {
   name: string;
   openRoles: number;
   city: string;
   note: string;
+  /** Hidden on the site until it is a real company. */
+  draft?: boolean;
 };
 
 /** PRD 5.5: companies specifically sourcing from the community. */
-export const companiesHiring: Company[] = [
-  { name: "Placeholder Systems", openRoles: 3, city: "Nagpur", note: "Frontend and QA" },
-  { name: "Placeholder Cloud", openRoles: 4, city: "Nagpur", note: "DevOps and support" },
-  { name: "Placeholder Analytics", openRoles: 2, city: "Nagpur", note: "ML and data" },
-  { name: "Placeholder Tech", openRoles: 2, city: "Nagpur", note: "Backend" },
+const allCompanies: Company[] = [
+  { name: "Placeholder Systems", openRoles: 3, city: "Nagpur", note: "Frontend and QA", draft: true },
+  { name: "Placeholder Cloud", openRoles: 4, city: "Nagpur", note: "DevOps and support", draft: true },
+  { name: "Placeholder Analytics", openRoles: 2, city: "Nagpur", note: "ML and data", draft: true },
+  { name: "Placeholder Tech", openRoles: 2, city: "Nagpur", note: "Backend", draft: true },
 ];
+
+/** The hiring companies the site shows (the section hides itself when empty). */
+export const companiesHiring: Company[] = allCompanies.filter((c) => !c.draft);
 
 export type OpportunityQuery = {
   type?: OpportunityType | "all";

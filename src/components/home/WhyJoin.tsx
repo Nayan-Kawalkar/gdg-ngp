@@ -34,7 +34,7 @@ export default function WhyJoin() {
       <Container>
         <SectionHeader
           eyebrow="Why join"
-          title="Five reasons this is worth your Saturday."
+          title="Five reasons that this is worth your weekend."
           lede="Not a mailing list. The chapter exists to get you further than you would get alone."
         />
 

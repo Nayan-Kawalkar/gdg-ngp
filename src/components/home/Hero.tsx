@@ -70,9 +70,9 @@ export default function Hero() {
               data-reveal-delay="0.55"
               className="mt-6 max-w-lg text-[1.0625rem] leading-relaxed text-ink-soft sm:text-[1.125rem]"
             >
-              The developer community for Nagpur. We run events you leave having built
-              something, connect you to mentors for free, and put real opportunities in
-              front of you.
+              The developer community for Nagpur. We run events where you build something
+              real, connect you with mentors for free, and put opportunities in front of
+              you.
             </p>
 
             <div

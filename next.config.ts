@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(import.meta.dirname),
   },
+  // Event pages that were renamed keep their old address working.
+  redirects() {
+    return [
+      {
+        source: "/events/flutter-forward-study-jam",
+        destination: "/events/flutter-study-jam",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

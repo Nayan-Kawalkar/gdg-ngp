@@ -109,8 +109,17 @@ export const intents: Intent[] = [
     words: ["internship", "internships", "scholarship", "scholarships", "opportunity", "opportunities", "stipend", "fellowship"],
     reply: () => {
       const c = opportunityCounts();
+      const parts = [
+        c.jobs && plural(c.jobs, "job"),
+        c.internships && plural(c.internships, "internship"),
+        c.scholarships && plural(c.scholarships, "scholarship"),
+        c.help && plural(c.help, "help request"),
+      ].filter(Boolean) as string[];
+      const list = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}` : parts[0];
       return {
-        text: `The opportunity board currently has ${plural(c.jobs, "job")}, ${plural(c.internships, "internship")}, ${plural(c.scholarships, "scholarship")} and ${plural(c.help, "help request")}. Every listing is reviewed and credits whoever shared it.`,
+        text: list
+          ? `The opportunity board currently has ${list}. Every listing is reviewed and credits whoever shared it.`
+          : "The opportunity board is empty right now - listings go up as the community shares them.",
         links: [
           { label: "Internships", href: "/opportunities?type=internship" },
           { label: "Scholarships", href: "/opportunities?type=scholarship" },

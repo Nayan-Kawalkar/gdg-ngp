@@ -83,7 +83,7 @@ Why these sizes:
 | Time | Free text, shown as written | `"10:00 AM - 5:00 PM IST"` |
 | Link | Full URL starting `https://` — `"#"` marks a placeholder | `"https://gdg.community.dev/..."` |
 | `id` | Unique within its list, never shown | `"evt-012"` |
-| `slug` | Lowercase words joined by hyphens, unique. **Never change it once shared** — it is the page URL | `"flutter-forward-study-jam"` → `/events/flutter-forward-study-jam` |
+| `slug` | Lowercase words joined by hyphens, unique. **Never change it once shared** — it is the page URL. If one must change, add a redirect from the old URL in `next.config.ts` (the Flutter Study Jam has one) | `"flutter-study-jam"` → `/events/flutter-study-jam` |
 | `accent` | One of `blue`, `red`, `yellow`, `green` | Card tint and dots. Vary it between neighbouring items. |
 | Image path | File in `/public`, written from the site root | `"/community/community-05.jpg"` |
 
@@ -336,7 +336,7 @@ heading too. The heading lives in the file shown, not in the data file.
 
 | Heading | File | Tied to |
 |---|---|---|
-| "Five reasons this is worth your Saturday." | `src/components/home/WhyJoin.tsx` | `valueProps` |
+| "Five reasons that this is worth your weekend." | `src/components/home/WhyJoin.tsx` | `valueProps` |
 | "Five ways to take the mic." | `src/app/speak/page.tsx` | `speakFormats` |
 | "Three ways to back an event." | `src/app/collaborate/page.tsx` | `tiers` |
 | "Your first week, in three steps." | `src/app/community/page.tsx` | `startSteps` |
@@ -372,7 +372,7 @@ organised.
 
 - [ ] Real **events**, with 2 : 1 banners, recap photos, and YouTube ids for recorded talks
 - [ ] Real, approved **mentors**: every current profile is a placeholder
-- [ ] Real **opportunities** and **companies hiring**: every current listing is a placeholder
+- [ ] Real **opportunities** and **companies hiring**: the placeholder listings and companies are marked `draft: true` in `src/data/opportunities.ts` and hidden; publish one by giving it a real company and removing `draft`
 - [ ] Real **tech news** links: every current headline is illustrative
 - [ ] **Community photos**: curated shots, ideally portrait, ≥ 1600 px
 - [ ] **Organizer and core team**: names, roles, links. Portraits need a small code change to display.
@@ -381,6 +381,7 @@ organised.
 - [ ] **Stats**: confirm every number, and the audience-mix percentages on Collaborate
 - [ ] **Channel member counts** and the Discord online number
 - [ ] **Links**: Discord, WhatsApp, Calendly and the media-kit PDF
+- [ ] **Code of conduct**: get the chapter's document from Saniya, add it to `public/` (e.g. `public/code-of-conduct.pdf`) and set `site.codeOfConduct` in `src/data/site.ts` to its path. The footer link points to the code of conduct section on `/community` until then.
 - [ ] **Social share image**: 1200 × 630
 - [ ] **Certificate recipients**: real volunteers with real random tokens
 - [ ] **Privacy page**: organizer review of `src/app/privacy/page.tsx`

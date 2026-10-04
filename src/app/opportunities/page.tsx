@@ -28,7 +28,7 @@ export default function OpportunitiesPage() {
     { value: counts.internships, label: counts.internships === 1 ? "internship" : "internships", dot: "bg-brand-green" },
     { value: counts.scholarships, label: counts.scholarships === 1 ? "scholarship" : "scholarships", dot: "bg-brand-yellow" },
     { value: counts.help, label: counts.help === 1 ? "help request" : "help requests", dot: "bg-brand-red" },
-  ];
+  ].filter((item) => item.value > 0);
 
   return (
     <>
@@ -92,42 +92,45 @@ export default function OpportunitiesPage() {
         </Container>
       </section>
 
-      {/* Companies hiring from the community - PRD 5.5 highlight */}
-      <section className="relative overflow-hidden bg-ink-deep py-16 text-white sm:py-20">
-        <div aria-hidden="true" className="absolute inset-0 bg-dotted-dark opacity-25" />
-        <Container className="relative">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <Eyebrow tone="dark">Hiring from the community</Eyebrow>
-              <h2
-                data-motion-text="words"
-                className="mt-5 max-w-xl text-[1.85rem] leading-[1.05] sm:text-[2.4rem]"
-              >
-                Companies that came here looking for you.
-              </h2>
+      {/* Companies hiring from the community - PRD 5.5 highlight. Hidden
+          until there is at least one real company to show. */}
+      {companiesHiring.length ? (
+        <section className="relative overflow-hidden bg-ink-deep py-16 text-white sm:py-20">
+          <div aria-hidden="true" className="absolute inset-0 bg-dotted-dark opacity-25" />
+          <Container className="relative">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <Eyebrow tone="dark">Hiring from the community</Eyebrow>
+                <h2
+                  data-motion-text="words"
+                  className="mt-5 max-w-xl text-[1.85rem] leading-[1.05] sm:text-[2.4rem]"
+                >
+                  Companies that came here looking for you.
+                </h2>
+              </div>
+              <ButtonLink href="/jobs-in-nagpur" variant="onDark">
+                Jobs in Nagpur
+              </ButtonLink>
             </div>
-            <ButtonLink href="/jobs-in-nagpur" variant="onDark">
-              Jobs in Nagpur
-            </ButtonLink>
-          </div>
 
-          <ul data-reveal-group className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {companiesHiring.map((company) => (
-              <li key={company.name} data-reveal-item className="card-sticker-dark p-7">
-                <span className="label-caps text-white/45">{company.city}</span>
-                <h3 className="mt-4 font-heading text-[1.2rem] tracking-[-0.03em]">
-                  {company.name}
-                </h3>
-                <p className="mt-1.5 text-[0.85rem] text-white/55">{company.note}</p>
-                <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[0.78rem] font-medium">
-                  <span aria-hidden="true" className="size-1.5 rounded-full bg-brand-green" />
-                  {company.openRoles} open {company.openRoles === 1 ? "role" : "roles"}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+            <ul data-reveal-group className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {companiesHiring.map((company) => (
+                <li key={company.name} data-reveal-item className="card-sticker-dark p-7">
+                  <span className="label-caps text-white/45">{company.city}</span>
+                  <h3 className="mt-4 font-heading text-[1.2rem] tracking-[-0.03em]">
+                    {company.name}
+                  </h3>
+                  <p className="mt-1.5 text-[0.85rem] text-white/55">{company.note}</p>
+                  <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[0.78rem] font-medium">
+                    <span aria-hidden="true" className="size-1.5 rounded-full bg-brand-green" />
+                    {company.openRoles} open {company.openRoles === 1 ? "role" : "roles"}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
 
       {/* Board */}
       <Section id="board" tone="cream">

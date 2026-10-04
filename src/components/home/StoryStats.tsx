@@ -53,8 +53,8 @@ export default function StoryStats() {
               className="mt-6 max-w-lg text-[1.0375rem] leading-relaxed text-white/60"
             >
               GDG Nagpur is volunteer-run and has been since day one. No tickets, no
-              paywall, no upsell at the end of the talk. What we have is a few thousand
-              people who keep turning up, and a track record you can check.
+              paywall, no upsell at the end of the talk. What we have is 15,000+ people
+              who keep turning up, and a track record you can check.
             </p>
             <div data-reveal="fade-up" data-reveal-delay="0.1" className="mt-9">
               <ButtonLink href="/about" variant="onDark" size="lg">

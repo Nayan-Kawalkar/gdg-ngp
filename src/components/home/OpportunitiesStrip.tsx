@@ -2,7 +2,7 @@ import { Container, Section, SectionHeader } from "@/components/ui/Section";
 import { ButtonLink, ArrowIcon } from "@/components/ui/Button";
 import Marquee from "@/components/ui/Marquee";
 import { IconPin } from "@/components/ui/Icons";
-import { opportunities, type Opportunity } from "@/data/opportunities";
+import { opportunities, placeLabel, type Opportunity } from "@/data/opportunities";
 import { cn } from "@/lib/cn";
 
 const typeTint: Record<Opportunity["type"], string> = {
@@ -37,21 +37,30 @@ function OpportunityCard({ item }: { item: Opportunity }) {
 
       <div className="mt-6 flex items-center gap-2 border-t border-ink/8 pt-4 text-[0.8rem] text-ink-soft/80">
         <IconPin className="size-3.5 shrink-0" />
-        <span className="truncate">{item.city} &middot; {item.workMode}</span>
+        <span className="truncate">{placeLabel(item)}</span>
       </div>
       <p className="mt-2 text-[0.78rem] text-ink-soft/60">Posted by {item.postedBy}</p>
     </a>
   );
 }
 
+/** Repeat a short list until it has `min` items, so a marquee row outruns the screen. */
+function fill<T>(list: T[], min: number): T[] {
+  const out: T[] = [];
+  while (list.length && out.length < min) out.push(...list);
+  return out;
+}
+
 /**
  * Two counter-scrolling rows so the board reads as "always moving" without
- * needing a carousel the user has to operate.
+ * needing a carousel the user has to operate. With only a handful of public
+ * listings, one row (repeated to fill the screen) instead of two thin ones.
  */
 export default function OpportunitiesStrip() {
+  const twoRows = opportunities.length >= 10;
   const half = Math.ceil(opportunities.length / 2);
-  const rowA = opportunities.slice(0, half);
-  const rowB = opportunities.slice(half);
+  const rowA = twoRows ? opportunities.slice(0, half) : fill(opportunities, 8);
+  const rowB = twoRows ? opportunities.slice(half) : [];
 
   return (
     <Section tone="paper" className="overflow-hidden">
@@ -68,18 +77,22 @@ export default function OpportunitiesStrip() {
         />
       </Container>
 
-      <div data-reveal="fade-in" className="mt-14 space-y-5 lg:mt-16">
-        <Marquee duration={52}>
-          {rowA.map((item) => (
-            <OpportunityCard key={item.id} item={item} />
-          ))}
-        </Marquee>
-        <Marquee duration={58} reverse>
-          {rowB.map((item) => (
-            <OpportunityCard key={item.id} item={item} />
-          ))}
-        </Marquee>
-      </div>
+      {rowA.length ? (
+        <div data-reveal="fade-in" className="mt-14 space-y-5 lg:mt-16">
+          <Marquee duration={52}>
+            {rowA.map((item, i) => (
+              <OpportunityCard key={`${item.id}-${i}`} item={item} />
+            ))}
+          </Marquee>
+          {rowB.length ? (
+            <Marquee duration={58} reverse>
+              {rowB.map((item, i) => (
+                <OpportunityCard key={`${item.id}-${i}`} item={item} />
+              ))}
+            </Marquee>
+          ) : null}
+        </div>
+      ) : null}
 
       <Container className="mt-12">
         <div

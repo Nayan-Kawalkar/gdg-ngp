@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SegmentTabs from "@/components/ui/SegmentTabs";
 import OpportunityCard from "@/components/opportunities/OpportunityCard";
 import OpportunityDialog from "@/components/opportunities/OpportunityDialog";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonLink } from "@/components/ui/Button";
 import {
   queryOpportunities,
   typeFromSlug,
@@ -197,13 +197,23 @@ export default function OpportunityBoard({
           </div>
         ) : (
           <div className="card-sticker mt-6 flex flex-col items-center gap-5 p-12 text-center sm:p-16">
-            <h3 className="text-[1.5rem] tracking-[-0.03em]">Nothing matches that yet.</h3>
+            <h3 className="text-[1.5rem] tracking-[-0.03em]">
+              {hasFilters ? "Nothing matches that yet." : "Nothing posted here yet."}
+            </h3>
             <p className="max-w-sm text-[0.975rem] leading-relaxed text-ink-soft">
-              Try a wider filter. If you know of something that belongs here, share it.
+              {hasFilters
+                ? "Try a wider filter. If you know of something that belongs here, share it."
+                : "Listings go up as the community shares them. If you know of something that belongs here, share it."}
             </p>
-            <Button onClick={() => push(new URLSearchParams())} variant="ink">
-              Clear filters
-            </Button>
+            {hasFilters ? (
+              <Button onClick={() => push(new URLSearchParams())} variant="ink">
+                Clear filters
+              </Button>
+            ) : (
+              <ButtonLink href="/opportunities/share" variant="ink">
+                Share an opportunity
+              </ButtonLink>
+            )}
           </div>
         )}
       </div>

@@ -152,22 +152,27 @@ export default function Footer() {
         </div>
 
         {/* Legal */}
-        <div className="flex flex-col gap-4 py-8 text-[0.8rem] text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            &copy; {year} {site.name}. Community-run.
-          </p>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a
-              href={`mailto:${site.email}`}
-              className="press transition-colors hover:text-white"
-            >
-              {site.email}
-            </a>
-            <Link href="/privacy" className="press transition-colors hover:text-white">
-              Privacy
-            </Link>
-            <span className="text-white/30">Not an official Google product.</span>
+        <div className="py-8 text-[0.8rem] text-white/45">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              &copy; {year} {site.name}. Community-run.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <a
+                href={`mailto:${site.email}`}
+                className="press transition-colors hover:text-white"
+              >
+                {site.email}
+              </a>
+              <Link href={site.codeOfConduct} className="press transition-colors hover:text-white">
+                Code of conduct
+              </Link>
+              <Link href="/privacy" className="press transition-colors hover:text-white">
+                Privacy
+              </Link>
+            </div>
           </div>
+          <p className="mt-5 max-w-3xl leading-relaxed text-white/35">{site.disclaimer}</p>
         </div>
       </Container>
     </footer>

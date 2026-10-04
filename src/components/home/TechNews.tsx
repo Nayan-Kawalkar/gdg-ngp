@@ -9,7 +9,7 @@ export default function TechNews() {
       <Container>
         <SectionHeader
           eyebrow="Tech news"
-          title="What actually moved this week."
+          title="What moved recently."
           lede="Curated by the organizers. Three stories, no filler, each one with the part that matters to you."
           action={
             <ButtonLink href="/tech-news" variant="outline">

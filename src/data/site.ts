@@ -13,6 +13,16 @@ export const site = {
   tagline: "A developer community in Nagpur, India.",
   email: "gdgnagpurofficials@gmail.com",
   city: "Nagpur, India",
+  /** Shown in both footers (main site and /devfest). */
+  disclaimer:
+    "GDG Nagpur is an independent group; our activities and the opinions expressed here should in no way be linked to Google, the corporation.",
+  /**
+   * PLACEHOLDER - the chapter's own code of conduct document (Saniya has the
+   * version made earlier). Until it is uploaded, this points at the code of
+   * conduct section on /community. Once the file is in public/ (for example
+   * public/code-of-conduct.pdf), set this to "/code-of-conduct.pdf".
+   */
+  codeOfConduct: "/community#code-of-conduct",
 } as const;
 
 export const socials = {
@@ -99,7 +109,7 @@ export const primaryNav: NavLink[] = [
 ];
 
 export const secondaryNav: NavLink[] = [
-  { label: "Tech News", href: "/tech-news", description: "What moved this week in AI, web and cloud" },
+  { label: "Tech News", href: "/tech-news", description: "What moved recently in AI, web and cloud" },
   { label: "Collaborate", href: "/collaborate", description: "Sponsor an event or co-host with us" },
   { label: "Speak / Judge", href: "/speak", description: "Take the stage or judge a hackathon" },
   {

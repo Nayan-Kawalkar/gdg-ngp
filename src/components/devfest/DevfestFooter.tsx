@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Section";
 import { IconInstagram, IconLinkedIn, IconX, IconYouTube } from "@/components/ui/Icons";
 import { Heart } from "@/components/devfest/icons";
 import { GdgLockup } from "@/components/devfest/ui";
-import { socials } from "@/data/site";
+import { site, socials } from "@/data/site";
 
 const social = [
   { label: "Instagram", href: socials.instagram, Icon: IconInstagram },
@@ -43,8 +43,14 @@ export default function DevfestFooter() {
         </p>
       </Container>
       <div className="border-t border-white/10">
-        <Container className="py-4 text-center text-[0.75rem] text-white/45 sm:text-left">
-          &copy; 2026 GDG Nagpur &middot; Community-run &middot; Not an official Google product
+        <Container className="flex flex-col gap-2 py-5 text-center text-[0.75rem] leading-relaxed text-white/45 sm:text-left lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+          <p className="shrink-0">
+            &copy; 2026 GDG Nagpur &middot; Community-run &middot;{" "}
+            <Link href={site.codeOfConduct} className="underline-offset-2 transition-colors hover:text-white hover:underline">
+              Code of conduct
+            </Link>
+          </p>
+          <p className="max-w-2xl text-white/35 lg:text-right">{site.disclaimer}</p>
         </Container>
       </div>
     </footer>

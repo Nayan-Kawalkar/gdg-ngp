@@ -15,7 +15,7 @@ import { cn } from "@/lib/cn";
 export const metadata: Metadata = {
   title: "Tech News",
   description:
-    "What moved this week in AI, web, mobile, cloud and careers - curated by the GDG Nagpur organizers, with the part that matters to you.",
+    "What moved recently in AI, web, mobile, cloud and careers - curated by the GDG Nagpur organizers, with the part that matters to you.",
 };
 
 function BoardFallback() {
@@ -36,7 +36,7 @@ export default function TechNewsPage() {
     <>
       <PageHero
         eyebrow="Tech news"
-        lines={["What actually", "moved this week."]}
+        lines={["What moved", "recently."]}
         lede="Curated by the organizers, not an algorithm. Each story comes with the one line on why it matters if you build things in Nagpur."
         washes={["yellow", "blue"]}
         actions={

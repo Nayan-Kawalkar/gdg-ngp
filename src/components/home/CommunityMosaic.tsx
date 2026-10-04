@@ -20,7 +20,7 @@ export default function CommunityMosaic() {
         <SectionHeader
           eyebrow="The room"
           title="This is what a GDG Nagpur day looks like."
-          lede="Not a stock photo in the set. Every one of these is from an event the chapter ran."
+          lede="Not a single stock photo in the set. Every one of these is from an event the chapter ran."
         />
       </Container>
 

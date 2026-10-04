@@ -3,7 +3,7 @@
 import Dialog from "@/components/ui/Dialog";
 import { ButtonLink } from "@/components/ui/Button";
 import { typeTint } from "@/components/opportunities/OpportunityCard";
-import type { Opportunity } from "@/data/opportunities";
+import { placeLabel, type Opportunity } from "@/data/opportunities";
 import { formatNewsDate } from "@/lib/format";
 import { cn } from "@/lib/cn";
 
@@ -39,7 +39,7 @@ export default function OpportunityDialog({
               {item.type}
             </span>
             <span className="rounded-full bg-ink/5 px-3 py-1.5 text-[0.78rem] font-medium text-ink-soft">
-              {item.city} &middot; {item.workMode}
+              {placeLabel(item)}
             </span>
           </div>
 

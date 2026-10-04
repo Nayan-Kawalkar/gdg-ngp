@@ -104,8 +104,8 @@ export default function CommunityPage() {
         </Container>
       </Section>
 
-      {/* Code of conduct */}
-      <Section tone="ink" className="overflow-hidden">
+      {/* Code of conduct - the footer's "Code of conduct" link lands here */}
+      <Section id="code-of-conduct" tone="ink" className="scroll-mt-24 overflow-hidden">
         <div aria-hidden="true" className="absolute inset-0 bg-dotted-dark opacity-25" />
         <Container className="relative">
           <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">

@@ -120,8 +120,8 @@ export const events: GdgEvent[] = [
   },
   {
     id: "evt-002",
-    slug: "flutter-forward-study-jam",
-    title: "Flutter Forward Study Jam",
+    slug: "flutter-study-jam",
+    title: "Flutter Study Jam",
     format: "Study Jam",
     status: "upcoming",
     date: "2026-10-25",
@@ -129,7 +129,7 @@ export const events: GdgEvent[] = [
     venue: "Symbiosis Institute, Wathoda",
     city: "Nagpur",
     summary:
-      "Four hands-on hours on Flutter 4: adaptive layouts, impeller rendering and shipping one app to both stores by the end of the session.",
+      "Four hours on Flutter: adaptive layouts, Impeller rendering and building one app ready for both Android and iOS by the end of the session.",
     capacity: 150,
     registerUrl: "#",
     accent: "green",
