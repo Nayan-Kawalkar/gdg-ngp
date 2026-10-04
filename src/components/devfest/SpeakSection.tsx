@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/ui/Section";
 import { ArrowCircle, DfArrow, DfButton, DfIntro, dfCardShadow } from "@/components/devfest/ui";
 import { ArrowRight, Silhouette } from "@/components/devfest/icons";
@@ -9,7 +8,7 @@ import { cn } from "@/lib/cn";
 /**
  * The template's "Meet the Captains": the Gate D26 lounge behind, a row of
  * four speaker cards. Nobody is announced yet, so each card is an open slot
- * that leads to the speaker application.
+ * that leads to the speaker form on Commudle (in a new tab).
  */
 export default function SpeakSection() {
   return (
@@ -41,6 +40,7 @@ export default function SpeakSection() {
               <DfButton href={devfestLinks.applyToSpeak}>
                 {devfestSpeak.primary}
                 <DfArrow />
+                <span className="sr-only"> (speaker form, opens in a new tab)</span>
               </DfButton>
               <DfButton href={devfestLinks.applyToJudge} variant="outline">
                 {devfestSpeak.secondary}
@@ -55,9 +55,11 @@ export default function SpeakSection() {
         >
           {devfestSpeakerSlots.map((slot) => (
             <li key={slot.format} data-reveal-item className="[perspective:1100px]">
-              <Link
+              <a
                 href={devfestLinks.applyToSpeak}
-                aria-label={`${slot.format} at ${slot.room}: speaker to be announced. Apply for this slot`}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={`${slot.format} at ${slot.room}: speaker to be announced. Apply for this slot (speaker form, opens in a new tab)`}
                 className="group block h-full rounded-3xl"
               >
                 {/* Turns over on hover (pointer devices) or keyboard focus to
@@ -115,7 +117,7 @@ export default function SpeakSection() {
                     </span>
                   </span>
                 </span>
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

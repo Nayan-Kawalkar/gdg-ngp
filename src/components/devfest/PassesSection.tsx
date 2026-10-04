@@ -1,15 +1,17 @@
 import { Container } from "@/components/ui/Section";
 import { DfArrow, DfButton, DfIntro, dfCardShadow } from "@/components/devfest/ui";
 import { Check, Plane } from "@/components/devfest/icons";
-import { devfestLinks, devfestPasses, devfestPassesIntro } from "@/data/devfest";
+import { devfestPasses, devfestPassesIntro } from "@/data/devfest";
 import { cn } from "@/lib/cn";
 
 type Pass = (typeof devfestPasses)[number];
 
 /**
  * Passes, drawn as boarding passes: NAG → NEXT, a perforated tear line with
- * notches, and a barcode stub. The notches are circles in the section's own
- * (solid) colour, so they read as bites out of the ticket.
+ * notches, what the pass includes, and a stub with the booking button (each
+ * pass has its own registration form) beside a barcode. The notches are
+ * circles in the section's own (solid) colour, so they read as bites out of
+ * the ticket.
  */
 export default function PassesSection() {
   return (
@@ -20,12 +22,6 @@ export default function PassesSection() {
           eyebrow={devfestPassesIntro.eyebrow}
           title={devfestPassesIntro.title}
           sub={devfestPassesIntro.sub}
-          action={
-            <DfButton href={devfestLinks.passes}>
-              {devfestPassesIntro.cta}
-              <DfArrow />
-            </DfButton>
-          }
         />
 
         <div data-reveal-group className="mt-12 grid gap-6 lg:grid-cols-2 lg:gap-8">
@@ -122,7 +118,10 @@ function BoardingPass({ pass, dark }: { pass: Pass; dark: boolean }) {
       </div>
 
       <div className="flex flex-1 flex-col px-6 pb-7 pt-5 sm:px-8">
-        <ul className="space-y-3">
+        <p className={cn("font-df text-[0.68rem] font-semibold uppercase tracking-[0.16em]", muted)}>
+          {devfestPassesIntro.includes}
+        </p>
+        <ul className="mt-3.5 space-y-3">
           {pass.perks.map((perk) => (
             <li key={perk} className="flex gap-3 text-[0.95rem] leading-snug">
               <span
@@ -138,17 +137,29 @@ function BoardingPass({ pass, dark }: { pass: Pass; dark: boolean }) {
             </li>
           ))}
         </ul>
+        {pass.motto ? (
+          <p className={cn("mt-5 font-df text-[0.95rem] font-semibold", dark ? "text-df-amber" : "text-df-blue")}>
+            {pass.motto}
+          </p>
+        ) : null}
 
-        <div aria-hidden="true" className="mt-auto flex items-end justify-between gap-6 pt-8">
-          <span className={cn("font-df text-[0.72rem] font-semibold uppercase tracking-[0.16em]", muted)}>
-            Flight DF26
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-x-6 gap-y-5 pt-8">
+          <DfButton href={pass.href}>
+            {pass.cta}
+            <DfArrow />
+            <span className="sr-only"> (registration form, opens in a new tab)</span>
+          </DfButton>
+          <span aria-hidden="true" className="flex flex-col items-end gap-1.5">
+            <span className={cn("font-df text-[0.66rem] font-semibold uppercase tracking-[0.16em]", muted)}>
+              Flight DF26
+            </span>
+            <span
+              className={cn(
+                "h-9 w-32 bg-[repeating-linear-gradient(90deg,currentColor_0_2px,transparent_2px_4px,currentColor_4px_5px,transparent_5px_8px,currentColor_8px_11px,transparent_11px_13px)]",
+                dark ? "text-white/35" : "text-df-navy/35",
+              )}
+            />
           </span>
-          <span
-            className={cn(
-              "h-9 w-36 bg-[repeating-linear-gradient(90deg,currentColor_0_2px,transparent_2px_4px,currentColor_4px_5px,transparent_5px_8px,currentColor_8px_11px,transparent_11px_13px)]",
-              dark ? "text-white/35" : "text-df-navy/35",
-            )}
-          />
         </div>
       </div>
     </article>

@@ -18,10 +18,13 @@ export const devfestMeta = {
 };
 
 export const devfestLinks = {
-  passes: "#", // PLACEHOLDER - ticketing / registration link
+  /** Registration forms on Commudle, one per pass. */
+  firstClass: "https://www.commudle.com/fill-form/5161",
+  businessClass: "https://www.commudle.com/fill-form/5164",
   partnershipDeck: "#", // PLACEHOLDER - partnership deck PDF
   talkToUs: "/collaborate#sponsor",
-  applyToSpeak: "/speak",
+  /** DevFest's own speaker form on Commudle. */
+  applyToSpeak: "https://www.commudle.com/fill-form/5195",
   applyToJudge: "/speak#judge",
 };
 
@@ -227,7 +230,8 @@ export const devfestPassesIntro = {
   title: "Two ways to fly.",
   sub: "Both passes cover the full event, food included. The difference is access to the parts of the day that have a fixed number of seats. The ₹599 pass is capped and usually closes well before the date.",
   note: "Student and group rates are available. Write to us before you book.",
-  cta: "Book your pass",
+  /** Heading over each pass's list, as on the registration forms. */
+  includes: "What your pass includes",
 };
 
 export const devfestPasses = [
@@ -237,13 +241,18 @@ export const devfestPasses = [
     price: "₹599",
     badge: "Limited seats",
     tagline: "Your seat on the day Nagpur points to what's next.",
+    /** Perks and sign-off as listed on the First Class registration form. */
     perks: [
-      "Full-day entry across both days, plus your DevFest Passport",
-      "Every keynote, tech talk, panel and lightning talk at The Runway",
-      "Tech stalls, startup demos and all the community zones",
-      "Lunch, chai and snacks through the day",
-      "Entry into the Final Call lucky draw",
+      "Full-day access to DevFest Nagpur 2026",
+      "Hands-on experiences and technology showcases",
+      "Networking opportunities",
+      "Community and partner showcases",
+      "Event refreshments/meals as applicable",
+      "DevFest attendee kit and goodies as applicable",
     ],
+    motto: "Check in. Learn. Connect. Explore.",
+    cta: "Book First Class",
+    href: devfestLinks.firstClass,
   },
   {
     id: "business",
@@ -251,15 +260,18 @@ export const devfestPasses = [
     price: "₹1699",
     badge: "",
     tagline: "For the ones who don't just take the route - they build it.",
+    /** Perks as listed on the Business Class registration form. */
     perks: [
-      "Everything in First Class, plus the parts that fill up first",
-      "Both hands-on codelabs at Gate 1A / 1B, where you leave with something working",
-      "Entry to the build challenge at The Hangar, prizes included",
-      "Reserved seating for the main sessions, so you are not standing at the back",
-      "The Canopy Lounge, where speakers and mentors sit between sessions",
-      "Priority at the Connecting Flights hiring booths",
-      "The DevFest swag kit",
+      "Full-day access to DevFest Nagpur 2026 and Gala Dinner",
+      "Hands-on experiences and technology showcases",
+      "Networking opportunities",
+      "Community and partner showcases",
+      "Event refreshments/meals as applicable",
+      "DevFest attendee kit and goodies as applicable",
     ],
+    motto: "",
+    cta: "Book Business Class",
+    href: devfestLinks.businessClass,
   },
 ];
 
