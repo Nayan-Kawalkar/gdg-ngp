@@ -28,6 +28,7 @@ export default function PassesSection() {
           {devfestPasses.map((pass) => (
             <BoardingPass key={pass.id} pass={pass} dark={pass.id === "business"} />
           ))}
+          <RegularTeaser />
         </div>
 
         <p data-reveal="fade-up" className="mt-8 text-center text-[0.95rem] text-df-slate">
@@ -161,6 +162,52 @@ function BoardingPass({ pass, dark }: { pass: Pass; dark: boolean }) {
             />
           </span>
         </div>
+      </div>
+    </article>
+  );
+}
+
+/**
+ * A third, blurred card: there are more passes than the two on sale. The
+ * content behind the blur is a stand-in (aria-hidden, unreadable), so nothing
+ * is promised about price or perks. TODO(devfest): replace with the real
+ * Regular pass, and a booking link, once it is announced.
+ */
+function RegularTeaser() {
+  return (
+    <article
+      data-reveal-item
+      aria-labelledby="pass-regular"
+      className={cn("relative overflow-hidden rounded-[1.75rem] bg-white lg:col-span-2", dfCardShadow)}
+    >
+      <div aria-hidden="true" className="pointer-events-none select-none blur-[7px]">
+        <div className="bg-df-mist/60 px-6 py-3.5 font-df text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-df-slate sm:px-8">
+          DevFest Nagpur 2026
+        </div>
+        <div className="grid gap-6 px-6 py-6 sm:px-8 lg:grid-cols-[1fr_1.3fr]">
+          <div>
+            <p className="font-df text-[0.8rem] font-semibold uppercase tracking-[0.16em]">Regular</p>
+            <p className="mt-2 font-df text-[3.25rem] font-bold leading-none text-df-orange">₹•••</p>
+            <p className="mt-3 text-[0.98rem] text-df-slate">Your everyday ticket to the day.</p>
+          </div>
+          <ul className="space-y-3 text-[0.95rem]">
+            {["Full-day access", "Hands-on experiences", "Networking opportunities", "Community showcases"].map((t) => (
+              <li key={t} className="flex gap-3">
+                <span className="mt-0.5 size-5 shrink-0 rounded-full bg-df-amber/15" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-white/40 px-6 text-center">
+        <h3 id="pass-regular" className="font-df text-[1.35rem] font-bold text-df-navy">
+          Regular passes
+        </h3>
+        <p className="max-w-sm text-[0.95rem] text-df-slate">More passes are on the way. Follow along to be first to know.</p>
+        <span className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-df-midnight px-3.5 py-1.5 font-df text-[0.75rem] font-semibold text-white">
+          Coming soon
+        </span>
       </div>
     </article>
   );
