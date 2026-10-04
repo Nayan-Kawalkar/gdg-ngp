@@ -4,13 +4,8 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap, useReducedMotion } from "@/lib/motion";
 
-/**
- * PLACEHOLDER art: a stock preview that still carries the stock site's
- * watermark, and only 477px wide. Replace public/devfest/plane.png with the
- * licensed, unwatermarked file (transparent PNG or WebP, ~1400px wide) and
- * update the size below.
- */
-const PLANE = { src: "/devfest/plane.png", width: 477, height: 208 };
+/** Transparent PNG; Next serves resized WebP/AVIF copies of it. */
+const PLANE = { src: "/devfest/plane.png", width: 2048, height: 884 };
 /** The jet's nose-up angle in the artwork, in degrees (screen coordinates). */
 const ART_ANGLE = -24.7;
 
